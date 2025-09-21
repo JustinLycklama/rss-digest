@@ -8,14 +8,18 @@ COMMENT_LIMIT = 1  # number of comments per post
 
 def fetch_posts(subreddit, limit=5):
     url = f"https://www.reddit.com/r/{subreddit}/top.json?sort=new&t=day&limit={limit}"
-    headers = {"User-Agent": "reddit-rss-script/0.1"}
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                  "AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/114.0.0.0 Safari/537.36"}
     r = requests.get(url, headers=headers)
     r.raise_for_status()
     return r.json()["data"]["children"]
 
 def fetch_comments(post_id, limit=1):
     url = f"https://www.reddit.com/comments/{post_id}.json?limit={limit}&sort=top"
-    headers = {"User-Agent": "reddit-rss-script/0.1"}
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                  "AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/114.0.0.0 Safari/537.36"}
     r = requests.get(url, headers=headers)
     r.raise_for_status()
     comments = r.json()[1]["data"]["children"]
