@@ -1,8 +1,10 @@
 import requests
 import datetime
 import xml.etree.ElementTree as ET
+import subprocess
+from bs4 import BeautifulSoup
 
-SUBREDDIT = "AskHistorians"
+SUBREDDIT = "TorontoRaves"
 POST_LIMIT = 5  # number of posts per day
 COMMENT_LIMIT = 1  # number of comments per post
 
@@ -44,6 +46,15 @@ def build_rss(posts):
         desc = p["data"].get("selftext", "")
         if comments:
             desc += "\n\n---\nTop comment:\n" + comments[0]
+            
+            # --- IMAGE LOGIC ---
+        img_url = None
+        preview = p["data"].get("preview")
+        if preview and "images" in preview and len(preview["images"]) > 0:
+            img_url = preview["images"][0]["source"]["url"]
+            ET.SubElement(item, "enclosure", url=img_url, type="image/jpeg")
+            desc = f'<img src="{img_url}" /><br>' + desc
+
         ET.SubElement(item, "description").text = desc
 
     return ET.ElementTree(rss)
@@ -53,3 +64,7 @@ if __name__ == "__main__":
     rss_tree = build_rss(posts)
     rss_tree.write("feed.xml", encoding="utf-8", xml_declaration=True)
 
+# after feed.xml is written
+subprocess.run(["git", "add", "feed.xml"])
+subprocess.run(["git", "commit", "-m", "Update daily feed"])
+subprocess.run(["git", "push"])
