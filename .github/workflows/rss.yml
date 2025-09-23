@@ -2,7 +2,7 @@ name: Build Reddit Digest RSS
 
 on:
   schedule:
-    - cron: "0 12 * * *"  # runs once per day at 12:00 UTC
+    - cron: "0 0 0 31 2"  #NEVER (31 feb) # runs once per day at 12:00 UTC
   workflow_dispatch:      # allow manual trigger
 
 jobs:
