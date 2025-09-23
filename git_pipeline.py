@@ -16,11 +16,15 @@ def run(cmd, check=True):
             sys.exit(result.returncode)
 
 try:
+    run(["git", "stash"])
+
     # Switch to gh-pages branch
     run(["git", "checkout", "gh-pages"])
 
     # Rebase onto main to get latest
     run(["git", "rebase", "main"])
+
+    run(["git", "stash", "pop"])
 
     # Stage feed file
     run(["git", "stage", OUTPUT_FILE])
