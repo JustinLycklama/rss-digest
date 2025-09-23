@@ -89,12 +89,3 @@ if __name__ == "__main__":
     posts = fetch_posts(SUBREDDIT, POST_LIMIT)
     rss_tree = build_rss(posts)
     rss_tree.write(OUTPUT_FILE, encoding="utf-8", xml_declaration=True)
-
-    # optional: push to GitHub
-    subprocess.run(["git", "checkout", "gh-pages"])
-    subprocess.run(["git", "rebase", "main"])
-    subprocess.run(["git", "add", OUTPUT_FILE])
-    subprocess.run(["git", "commit", "-m", "Update daily feed", "--amend"])
-    subprocess.run(["git", "push", "-f"])
-    subprocess.run(["git", "checkout", "main"])
-
