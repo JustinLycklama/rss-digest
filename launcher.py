@@ -9,7 +9,7 @@ repo_dir = Path(__file__).parent
 # List of scripts to run, in order
 scripts = [
     "generate_digest.py",
-    "update_git.py",
+    "git_pipeline.py",
     # add more scripts here if needed
 ]
 
