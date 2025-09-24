@@ -17,7 +17,7 @@ def run(cmd, check=True):
 
 try:
     # Stage feed file
-    run(["git", "add", OUTPUT_DIR])
+    run(["git", "stage", OUTPUT_DIR])
 
     # Commit (amend previous commit to keep history clean)
     run(["git", "commit", "-m", "Update daily feed", "--amend"])
