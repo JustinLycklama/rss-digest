@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 # Path to your feed file
-OUTPUT_FILE = "feed.xml"
+OUTPUT_DIR = "output"
 
 def run(cmd, check=True):
     print(f"Running: {' '.join(cmd)}")
@@ -17,7 +17,7 @@ def run(cmd, check=True):
 
 try:
     # Stage feed file
-    run(["git", "stage", OUTPUT_FILE])
+    run(["git", "add", OUTPUT_DIR])
 
     # Commit (amend previous commit to keep history clean)
     run(["git", "commit", "-m", "Update daily feed", "--amend"])

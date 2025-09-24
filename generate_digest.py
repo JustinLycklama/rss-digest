@@ -9,7 +9,8 @@ import re
 SUBREDDIT = "TorontoRaves"
 POST_LIMIT = 3
 COMMENT_LIMIT = 1
-OUTPUT_FILE = "feed.xml"
+OUTPUT_FILE = "output/feed.xml"
+
 HEADERS = {"User-Agent": "RSS Digest 1.0 by /u/yourusername"}
 
 # --- CLEAN HTML TEXT ---
