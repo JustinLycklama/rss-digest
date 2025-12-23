@@ -10,8 +10,8 @@ repo_dir = Path(__file__).parent
 scripts = [
     "git_pipeline_reset_gh-pages_to_main.py",
     "generate_digest.py",
-    "git_pipeline_push_and_return.py",
-    # add more scripts here if needed
+    "run_custom_scrapers.py",
+    "git_pipeline_force_push_and_return_to_main.py",
 ]
 
 for script_name in scripts:
