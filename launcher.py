@@ -8,7 +8,7 @@ repo_dir = Path(__file__).parent
 
 # List of scripts to run, in order
 scripts = [
-    "git_pipeline_move_and_rebase.py",
+    "git_pipeline_reset_gh-pages_to_main.py",
     "generate_digest.py",
     "git_pipeline_push_and_return.py",
     # add more scripts here if needed

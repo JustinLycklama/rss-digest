@@ -19,4 +19,4 @@ def run(cmd, check=True):
 run(["git", "checkout", "gh-pages"])
 
 # Rebase onto main to get latest
-run(["git", "rebase", "main"])
+run(["git", "reset", "--hard", "main"])
