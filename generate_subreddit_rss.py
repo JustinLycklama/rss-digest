@@ -49,20 +49,25 @@ def build_rss(posts):
         title = entry.find('atom:title', ATOM_NS).text
         link = entry.find('atom:link', ATOM_NS).attrib['href']
         content = entry.find('atom:content', ATOM_NS)
-        desc = clean_text(content.text) if content is not None else ""
-        # Append comment link
-        desc += f"\n\n---\nView discussion on Reddit: {link}"
+        desc_text = clean_text(content.text) if content is not None else ""
 
         # Include post flair if present
         flair_el = entry.find("{http://www.w3.org/2005/Atom}category")
         flair_text = flair_el.attrib.get('term') if flair_el is not None else ""
-        if flair_text:
-            desc = f"[{flair_text}] " + desc
+        flair_prefix = f"[{flair_text}] " if flair_text else ""
+
+        # Build description with spacing and clickable link
+        desc_lines = [
+            f"<p>{flair_prefix}{desc_text}</p>",
+            f'<p><a href="{link}">View discussion on Reddit</a></p>'
+        ]
+        desc = "\n".join(desc_lines)
 
         item = ET.SubElement(channel, "item")
         ET.SubElement(item, "title").text = title
         ET.SubElement(item, "link").text = link
         ET.SubElement(item, "description").text = desc
+
         guid = ET.SubElement(item, "guid")
         guid.text = link
         guid.set("isPermaLink", "true")
@@ -86,7 +91,7 @@ def build_rss(posts):
             media_content.set("url", thumb_url)
             media_content.set("type", "image/jpeg")
             # prepend image in description for fallback
-            item.find("description").text = f'<img src="{thumb_url}" /><br>{desc}'
+            item.find("description").text = f'<p><img src="{thumb_url}" /></p>' + desc
 
     return ET.ElementTree(rss)
 
