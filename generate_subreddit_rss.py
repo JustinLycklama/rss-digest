@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import requests
 import xml.etree.ElementTree as ET
 from datetime import datetime, UTC
@@ -6,9 +7,9 @@ from html import unescape
 import re
 
 # --- CONFIG ---
-SUBREDDIT = "TorontoRaves"
+SUBREDDIT = ""
 POST_LIMIT = 15
-OUTPUT_FILE = "output/feed.xml"
+OUTPUT_FILE = ""
 
 HEADERS = {"User-Agent": "RSS Digest 1.0 by /u/frownigami"}
 
@@ -91,6 +92,13 @@ def build_rss(posts):
 
 # --- MAIN ---
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python generate_reddit_rss.py <subreddit>")
+        sys.exit(1)
+
+    SUBREDDIT = sys.argv[1]
+    OUTPUT_FILE = f"output/{SUBREDDIT}.xml"
+
     posts = fetch_posts(SUBREDDIT, POST_LIMIT)
     print(f"Fetched {len(posts)} posts")
     rss_tree = build_rss(posts)
