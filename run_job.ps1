@@ -1,13 +1,16 @@
 # Navigate to the repo folder
 Set-Location "$PSScriptRoot"
 
-# Pull latest changes from GitHub
-git pull origin main
-
-# Run your custom script
-# Adjust this line to whatever your script is
-python "$PSScriptRoot\launcher.py"
-
-# Optional: log output
+$logFile = "$PSScriptRoot\job.log"
 $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-"$date - Job ran successfully" | Out-File -Append "job.log"
+"$date - Starting job..." | Out-File -Append $logFile
+
+# Pull latest changes from GitHub and log output
+git pull origin main 2>&1 | Tee-Object -FilePath $logFile -Append
+
+# Run your custom script and log output
+python "$PSScriptRoot\launcher.py" 2>&1 | Tee-Object -FilePath $logFile -Append
+
+# Finish log
+$date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+"$date - Job finished" | Out-File -Append $logFile
