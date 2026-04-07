@@ -19,11 +19,11 @@ from anthropic import Anthropic
 
 # --- CONFIG ---
 FEEDS = [
-    ("Reuters", "https://feeds.reuters.com/reuters/topNews"),
-    ("AP",      "https://rsshub.app/apnews/topics/apf-topnews"),
-    ("BBC",     "http://feeds.bbci.co.uk/news/world/rss.xml"),
-    ("Verge",   "https://www.theverge.com/rss/index.xml"),
-    ("Ars",     "https://feeds.arstechnica.com/arstechnica/index"),
+    ("BBC",       "http://feeds.bbci.co.uk/news/world/rss.xml"),
+    ("Guardian",  "https://www.theguardian.com/world/rss"),
+    ("AlJazeera", "https://www.aljazeera.com/xml/rss/all.xml"),
+    ("Verge",     "https://www.theverge.com/rss/index.xml"),
+    ("Ars",       "https://feeds.arstechnica.com/arstechnica/index"),
 ]
 
 MAX_PER_FEED   = 30
