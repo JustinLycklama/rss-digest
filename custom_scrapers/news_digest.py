@@ -20,7 +20,7 @@ from anthropic import Anthropic
 # --- CONFIG ---
 FEEDS = [
     ("Reuters", "https://feeds.reuters.com/reuters/topNews"),
-    ("AP",      "https://feeds.apnews.com/rss/apf-topnews"),
+    ("AP",      "https://rsshub.app/apnews/topics/apf-topnews"),
     ("BBC",     "http://feeds.bbci.co.uk/news/world/rss.xml"),
     ("Verge",   "https://www.theverge.com/rss/index.xml"),
     ("Ars",     "https://feeds.arstechnica.com/arstechnica/index"),
