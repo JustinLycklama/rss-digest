@@ -33,8 +33,10 @@ OUTPUT_FILE    = "output/news.xml"
 NOTION_TOKEN   = os.environ.get("NOTION_TOKEN")
 FILTER_PAGE_ID = "33ba1339f88a81799204f8b0d4a1ca71"  # News Filter Memory page
 
-HEADERS    = {"User-Agent": "NewsDigest/1.0"}
-MEDIA_NS   = "http://search.yahoo.com/mrss/"
+HEADERS  = {"User-Agent": "NewsDigest/1.0"}
+MEDIA_NS = "http://search.yahoo.com/mrss/"
+
+ET.register_namespace("media", MEDIA_NS)
 
 
 # --- NOTION FETCH ---
@@ -126,9 +128,6 @@ def extract_image(item, ns=None):
     # img tag inside description/content
     for field in ["description", "content"]:
         text = item.findtext(field) or ""
-        if ns:
-            for key in ns:
-                text = text or item.findtext(f"{key}:content", "", ns) or ""
         match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', text)
         if match:
             return match.group(1)
@@ -235,8 +234,7 @@ Articles:
 
 # --- BUILD RSS ---
 def build_rss(articles):
-    ET.register_namespace("media", MEDIA_NS)
-    rss     = ET.Element("rss", version="2.0", attrib={"xmlns:media": MEDIA_NS})
+    rss     = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
     ET.SubElement(channel, "title").text        = "Daily News Digest"
     ET.SubElement(channel, "link").text         = "https://github.com/JustinLycklama/rss-digest"
