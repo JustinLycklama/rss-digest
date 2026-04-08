@@ -33,29 +33,8 @@ OUTPUT_FILE    = "output/news.xml"
 NOTION_TOKEN   = os.environ.get("NOTION_TOKEN")
 FILTER_PAGE_ID = "33ba1339f88a81799204f8b0d4a1ca71"  # News Filter Memory page
 
-HEADERS = {"User-Agent": "NewsDigest/1.0"}
-
-DEFAULT_FILTER_CONTEXT = """
-The user wants a daily digest of significant world news. Apply these rules:
-
-INCLUDE:
-- Wars: escalation, de-escalation, major battles, peace deals
-- Regime changes: elections with major outcomes, coups, leaders captured/killed
-- Major economic policy: tariffs with significant global impact, market crashes, major sanctions
-- Space launches and milestones
-- Major tech product launches or significant company events (not funding rounds or layoffs)
-- Natural disasters at large scale
-- Major scientific breakthroughs
-
-EXCLUDE:
-- Day-to-day political back-and-forth
-- Crime (unless a major world event)
-- Celebrity, entertainment, sports
-- Incremental follow-up stories unless something major changed
-- Local news
-
-SIGNIFICANCE TEST: Would this story still matter in a week? If no, exclude it.
-"""
+HEADERS    = {"User-Agent": "NewsDigest/1.0"}
+MEDIA_NS   = "http://search.yahoo.com/mrss/"
 
 
 # --- NOTION FETCH ---
@@ -90,6 +69,29 @@ def fetch_notion_filter_context():
     return DEFAULT_FILTER_CONTEXT
 
 
+DEFAULT_FILTER_CONTEXT = """
+The user wants a daily digest of significant world news. Apply these rules:
+
+INCLUDE:
+- Wars: escalation, de-escalation, major battles, peace deals
+- Regime changes: elections with major outcomes, coups, leaders captured/killed
+- Major economic policy: tariffs with significant global impact, market crashes, major sanctions
+- Space launches and milestones
+- Major tech product launches or significant company events (not funding rounds or layoffs)
+- Natural disasters at large scale
+- Major scientific breakthroughs
+
+EXCLUDE:
+- Day-to-day political back-and-forth
+- Crime (unless a major world event)
+- Celebrity, entertainment, sports
+- Incremental follow-up stories unless something major changed
+- Local news
+
+SIGNIFICANCE TEST: Would this story still matter in a week? If no, exclude it.
+"""
+
+
 # --- RSS FETCH ---
 def clean(text):
     if not text:
@@ -97,6 +99,41 @@ def clean(text):
     text = unescape(text)
     text = re.sub(r"<[^>]+>", "", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def extract_image(item, ns=None):
+    """Try to find an image URL from various RSS/Atom image fields."""
+    # media:content or media:thumbnail
+    for tag in [f"{{{MEDIA_NS}}}content", f"{{{MEDIA_NS}}}thumbnail"]:
+        el = item.find(tag)
+        if el is not None:
+            url = el.attrib.get("url")
+            if url:
+                return url
+
+    # enclosure
+    enc = item.find("enclosure")
+    if enc is not None and "image" in enc.attrib.get("type", ""):
+        return enc.attrib.get("url")
+
+    # <image> child
+    img = item.find("image")
+    if img is not None:
+        url = img.findtext("url") or img.attrib.get("url")
+        if url:
+            return url
+
+    # img tag inside description/content
+    for field in ["description", "content"]:
+        text = item.findtext(field) or ""
+        if ns:
+            for key in ns:
+                text = text or item.findtext(f"{key}:content", "", ns) or ""
+        match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', text)
+        if match:
+            return match.group(1)
+
+    return None
 
 
 def fetch_feed(name, url):
@@ -112,8 +149,9 @@ def fetch_feed(name, url):
             title = clean(item.findtext("title") or "")
             desc  = clean(item.findtext("description") or "")
             link  = (item.findtext("link") or "").strip()
+            image = extract_image(item)
             if title:
-                items.append({"source": name, "title": title, "desc": desc[:300], "link": link})
+                items.append({"source": name, "title": title, "desc": desc[:300], "link": link, "image": image})
 
         # Atom fallback
         if not items:
@@ -123,8 +161,9 @@ def fetch_feed(name, url):
                 summary = clean(entry.findtext("atom:summary", "", ns) or entry.findtext("atom:content", "", ns) or "")
                 link_el = entry.find("atom:link", ns)
                 link    = link_el.attrib.get("href", "") if link_el is not None else ""
+                image   = extract_image(entry, ns)
                 if title:
-                    items.append({"source": name, "title": title, "desc": summary[:300], "link": link})
+                    items.append({"source": name, "title": title, "desc": summary[:300], "link": link, "image": image})
 
         print(f"  {name}: {len(items)} articles")
         return items
@@ -196,7 +235,8 @@ Articles:
 
 # --- BUILD RSS ---
 def build_rss(articles):
-    rss     = ET.Element("rss", version="2.0")
+    ET.register_namespace("media", MEDIA_NS)
+    rss     = ET.Element("rss", version="2.0", attrib={"xmlns:media": MEDIA_NS})
     channel = ET.SubElement(rss, "channel")
     ET.SubElement(channel, "title").text        = "Daily News Digest"
     ET.SubElement(channel, "link").text         = "https://github.com/JustinLycklama/rss-digest"
@@ -205,12 +245,17 @@ def build_rss(articles):
 
     for a in articles:
         item = ET.SubElement(channel, "item")
-        ET.SubElement(item, "title").text       = f"[{a['source']}] {a['title']}"
+        ET.SubElement(item, "title").text       = a["title"]
         ET.SubElement(item, "link").text        = a["link"]
         ET.SubElement(item, "description").text = f"<p>{a['desc']}</p><p><em>{a.get('reason', '')}</em></p>"
         guid      = ET.SubElement(item, "guid")
         guid.text = hashlib.sha1(a["link"].encode()).hexdigest()
         guid.set("isPermaLink", "false")
+
+        if a.get("image"):
+            mc = ET.SubElement(item, f"{{{MEDIA_NS}}}content")
+            mc.set("url", a["image"])
+            mc.set("medium", "image")
 
     ET.ElementTree(rss).write(OUTPUT_FILE, encoding="utf-8", xml_declaration=True)
     print(f"\nWrote {len(articles)} articles to {OUTPUT_FILE}")
