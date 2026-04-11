@@ -24,6 +24,13 @@ jobs:
       - name: Generate Reddit RSS feeds
         run: python run_generate_reddit_rss.py
 
+      - name: Restore news archive from gh-pages
+        run: |
+          mkdir -p output
+          curl -f -s -o output/news_archive.json \
+            https://raw.githubusercontent.com/${{ github.repository }}/gh-pages/news_archive.json \
+            || echo "No archive found, starting fresh"
+
       - name: Run custom scrapers (includes news digest)
         run: python run_custom_scrapers.py
         env:

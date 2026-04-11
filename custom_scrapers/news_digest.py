@@ -19,16 +19,19 @@ from anthropic import Anthropic
 
 # --- CONFIG ---
 FEEDS = [
-    ("BBC",       "http://feeds.bbci.co.uk/news/world/rss.xml"),
-    ("Guardian",  "https://www.theguardian.com/world/rss"),
-    ("AlJazeera", "https://www.aljazeera.com/xml/rss/all.xml"),
-    ("Verge",     "https://www.theverge.com/rss/index.xml"),
-    ("Ars",       "https://feeds.arstechnica.com/arstechnica/index"),
+    ("BBC",          "http://feeds.bbci.co.uk/news/world/rss.xml"),
+    ("Guardian",     "https://www.theguardian.com/world/rss"),
+    ("AlJazeera",    "https://www.aljazeera.com/xml/rss/all.xml"),
+    ("Verge",        "https://www.theverge.com/rss/index.xml"),
+    ("Ars",          "https://feeds.arstechnica.com/arstechnica/index"),
+    ("CBCToronto",   "https://www.cbc.ca/cmlink/rss-canada-toronto"),
 ]
 
 MAX_PER_FEED   = 30
 BATCH_SIZE     = 40
 OUTPUT_FILE    = "output/news.xml"
+ARCHIVE_FILE   = "output/news_archive.json"
+ARCHIVE_DAYS   = 7
 
 NOTION_TOKEN   = os.environ.get("NOTION_TOKEN")
 FILTER_PAGE_ID = "33ba1339f88a81799204f8b0d4a1ca71"  # News Filter Memory page
@@ -232,6 +235,46 @@ Articles:
     return kept
 
 
+# --- ARCHIVE ---
+def load_archive():
+    if not os.path.exists(ARCHIVE_FILE):
+        return []
+    try:
+        with open(ARCHIVE_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Could not load archive: {e} — starting fresh")
+        return []
+
+
+def save_archive(articles):
+    with open(ARCHIVE_FILE, "w", encoding="utf-8") as f:
+        json.dump(articles, f, ensure_ascii=False, indent=2)
+
+
+def merge_into_archive(archive, new_articles):
+    """Add new articles to archive, dedup by guid, prune entries older than ARCHIVE_DAYS."""
+    existing_guids = {a["guid"] for a in archive}
+    now = datetime.now(UTC)
+
+    for a in new_articles:
+        guid = hashlib.sha1(a["link"].encode()).hexdigest()
+        if guid not in existing_guids:
+            a["guid"] = guid
+            a["added_at"] = now.isoformat()
+            archive.append(a)
+            existing_guids.add(guid)
+
+    cutoff = now.timestamp() - ARCHIVE_DAYS * 86400
+    archive = [
+        a for a in archive
+        if datetime.fromisoformat(a["added_at"]).timestamp() > cutoff
+    ]
+
+    archive.sort(key=lambda a: a["added_at"], reverse=True)
+    return archive
+
+
 # --- BUILD RSS ---
 def build_rss(articles):
     rss     = ET.Element("rss", version="2.0")
@@ -247,7 +290,7 @@ def build_rss(articles):
         ET.SubElement(item, "link").text        = a["link"]
         ET.SubElement(item, "description").text = f"<p>{a['desc']}</p><p><em>{a.get('reason', '')}</em></p>"
         guid      = ET.SubElement(item, "guid")
-        guid.text = hashlib.sha1(a["link"].encode()).hexdigest()
+        guid.text = a.get("guid") or hashlib.sha1(a["link"].encode()).hexdigest()
         guid.set("isPermaLink", "false")
 
         if a.get("image"):
@@ -264,6 +307,11 @@ if __name__ == "__main__":
     print("Fetching filter context...")
     filter_context = fetch_notion_filter_context()
 
+    print("\nLoading archive...")
+    archive = load_archive()
+    archive_guids = {hashlib.sha1(a["link"].encode()).hexdigest() for a in archive}
+    print(f"  {len(archive)} articles in archive")
+
     print("\nFetching feeds...")
     all_articles = []
     for name, url in FEEDS:
@@ -271,10 +319,19 @@ if __name__ == "__main__":
 
     print(f"\nTotal fetched: {len(all_articles)}")
     all_articles = dedup(all_articles)
-    print(f"After dedup:   {len(all_articles)}")
+    # Skip articles already in archive — no need to re-filter them
+    all_articles = [
+        a for a in all_articles
+        if hashlib.sha1(a["link"].encode()).hexdigest() not in archive_guids
+    ]
+    print(f"After dedup/archive filter: {len(all_articles)} new articles")
 
     print("\nFiltering with Claude...")
     kept = filter_articles(all_articles, filter_context)
-    print(f"Kept:          {len(kept)} articles")
+    print(f"Kept:          {len(kept)} new articles")
 
-    build_rss(kept)
+    archive = merge_into_archive(archive, kept)
+    save_archive(archive)
+    print(f"Archive size:  {len(archive)} articles (rolling {ARCHIVE_DAYS} days)")
+
+    build_rss(archive)
