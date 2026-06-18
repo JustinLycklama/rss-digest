@@ -23,6 +23,8 @@ jobs:
 
       - name: Generate Reddit RSS feeds
         run: python run_generate_reddit_rss.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Restore news archive from gh-pages
         run: |

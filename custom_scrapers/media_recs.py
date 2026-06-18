@@ -25,7 +25,11 @@ MAX_PER_FEED = 10
 BATCH_SIZE   = 30
 OUTPUT_FILE  = "output/media_recs.xml"
 
-HEADERS  = {"User-Agent": "MediaRecs/1.0"}
+HEADERS  = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    "Referer": "https://substack.com/",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+}
 MEDIA_NS = "http://search.yahoo.com/mrss/"
 
 ET.register_namespace("media", MEDIA_NS)
