@@ -1,1 +1,8 @@
 TorontoRaves | Only include posts about local Toronto rave or party events with a specific date or venue. Exclude memes, gear questions, music releases, set recordings, and general discussion.
+patientgamers | Only include posts that recommend specific games, "if you liked X try Y" threads, or community consensus recommendation lists. Exclude news, announcements, reviews without a recommendation angle, and general discussion.
+fantasy | Only include posts that recommend specific books or series, "if you liked X try Y" threads, or curated reading lists. Exclude news, author drama, cover reveals, and general discussion.
+scifi | Only include posts that recommend specific books, films, or series, "if you liked X try Y" threads, or curated lists. Exclude news, trailers, release dates, and general discussion.
+criterion | Only include posts that recommend specific films or discuss what to watch next. Exclude general film discussion, news, and posts without a clear recommendation.
+truefilm | Only include posts that recommend specific films or frame discussion around what to watch. Exclude pure analysis with no recommendation angle and general debate posts.
+booksuggestions | Only include posts that recommend specific books in response to a stated interest or "if you liked X" prompt. Exclude vague requests with no clear recommendation.
+televisionsuggestions | Only include posts that recommend specific shows in response to a stated interest or "if you liked X" prompt. Exclude vague requests with no clear recommendation.
