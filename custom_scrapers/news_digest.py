@@ -21,6 +21,7 @@ from anthropic import Anthropic
 FEEDS = [
     ("BBC",          "http://feeds.bbci.co.uk/news/world/rss.xml"),
     ("Guardian",     "https://www.theguardian.com/world/rss"),
+    ("NYT",          "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"),
     ("CBCCanada",    "https://www.cbc.ca/cmlink/rss-canada"),
     ("NPRPolitics",  "https://feeds.npr.org/1014/rss.xml"),
     ("Verge",        "https://www.theverge.com/rss/index.xml"),
