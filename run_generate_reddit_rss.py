@@ -15,10 +15,16 @@ def run_generate_reddit_rss():
         subreddits = [line.strip() for line in f if line.strip()]
 
 
-    for subreddit in subreddits:
+    for line in subreddits:
+        parts         = line.split("|", 1)
+        subreddit     = parts[0].strip()
+        filter_intent = parts[1].strip() if len(parts) > 1 else ""
         try:
             print(f"Generating RSS feed for r/{subreddit}...")
-            subprocess.run([sys.executable, "generate_subreddit_rss.py", subreddit], check=True)
+            cmd = [sys.executable, "generate_subreddit_rss.py", subreddit]
+            if filter_intent:
+                cmd.append(filter_intent)
+            subprocess.run(cmd, check=True)
             results.append(f"{subreddit}.xml")
         except subprocess.CalledProcessError as e:
             print(f"Failed for r/{subreddit} with error code {e.returncode}")
