@@ -21,7 +21,7 @@ from googleapiclient.discovery import build
 
 # --- CONFIG ---
 SONGKICK_ICAL_URL = "http://www.songkick.com/users/justin-lycklama/calendars.ics"
-TARGET_CALENDAR   = "Random City Events"
+TARGET_CALENDAR   = "Potential Shows"
 LOOK_AHEAD_DAYS   = 180  # only create events within this window
 
 

@@ -23,7 +23,7 @@ Runs the full RSS pipeline in order:
 ### Songkick Calendar Sync — `.github/workflows/songkick.yml`
 **Schedule:** Every Monday at 10am UTC
 
-Fetches the Songkick iCal feed for tracked artists and creates new events in the *Random City Events* Google Calendar. Skips events already created (deduped via Google Calendar extended properties).
+Fetches the Songkick iCal feed for tracked artists and creates new events in the *Potential Shows* Google Calendar. Skips events already created (deduped via Google Calendar extended properties).
 
 **Secrets required:** `GCAL_CLIENT_ID`, `GCAL_CLIENT_SECRET`, `GCAL_REFRESH_TOKEN`
 
@@ -84,7 +84,7 @@ Scrapes the Shambhala Music Festival blog.
 ### Songkick → Google Calendar — `songkick_calendar.py`
 **Not part of the daily RSS pipeline** — runs via its own weekly workflow.
 
-Fetches `http://www.songkick.com/users/justin-lycklama/calendars.ics`, parses VEVENT blocks, and creates events in the *Random City Events* Google Calendar for anything within the next 180 days not already added.
+Fetches `http://www.songkick.com/users/justin-lycklama/calendars.ics`, parses VEVENT blocks, and creates events in the *Potential Shows* Google Calendar for anything within the next 180 days not already added.
 
 To generate new OAuth tokens: copy `client_secret.json` (from Google Cloud Console) to the repo root and run `python get_calendar_token.py`. Store the output as GitHub secrets.
 

@@ -2,7 +2,7 @@ name: Daily RSS Digest
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # noon UTC = 8am EDT, runs every day
+    - cron: '0 10 * * *'  # 10am UTC = 6am EDT, runs every day
   workflow_dispatch:        # allows manual trigger from GitHub UI
 
 jobs:
