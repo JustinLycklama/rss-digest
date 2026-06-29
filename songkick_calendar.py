@@ -25,12 +25,17 @@ LOOK_AHEAD_DAYS   = 180
 
 # Maps city keywords (lowercase, checked against event location) to Google Calendar name
 CITY_CALENDARS = {
-    "toronto":     "Potential Shows - Toronto",
-    "new york":    "Potential Shows - New York",
-    "brooklyn":    "Potential Shows - New York",
-    "montreal":    "Potential Shows - Montreal",
-    "seattle":     "Potential Shows - Seattle",
-    "minneapolis": "Potential Shows - Minneapolis",
+    "toronto":      "Potential Shows - Toronto",
+    "new york":     "Potential Shows - New York",
+    "brooklyn":     "Potential Shows - New York",
+    "summerstage":  "Potential Shows - New York",
+    "montreal":     "Potential Shows - Montreal",
+    "montréal":     "Potential Shows - Montreal",
+    "montré":  "Potential Shows - Montreal",  # accent variant
+    "grand quai":   "Potential Shows - Montreal",
+    "jean-drapeau": "Potential Shows - Montreal",
+    "seattle":      "Potential Shows - Seattle",
+    "minneapolis":  "Potential Shows - Minneapolis",
 }
 
 
