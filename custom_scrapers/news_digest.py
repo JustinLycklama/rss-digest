@@ -290,7 +290,7 @@ def build_rss(articles):
         item = ET.SubElement(channel, "item")
         ET.SubElement(item, "title").text       = a["title"]
         ET.SubElement(item, "link").text        = a["link"]
-        ET.SubElement(item, "description").text = f"<p>{a['desc']}</p><p><em>{a.get('reason', '')}</em></p>"
+        ET.SubElement(item, "description").text = f"<p>{a['desc']}</p><p><em>{a.get('source', '')} — {a.get('reason', '')}</em></p>"
         guid      = ET.SubElement(item, "guid")
         guid.text = a.get("guid") or hashlib.sha1(a["link"].encode()).hexdigest()
         guid.set("isPermaLink", "false")
