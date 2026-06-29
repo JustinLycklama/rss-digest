@@ -2,8 +2,8 @@
 """
 songkick_calendar.py — Sync Songkick tracked events to Google Calendar
 
-Fetches the Songkick iCal feed, finds events not already in the target
-calendar, and creates them. Runs as part of the daily CI pipeline.
+Fetches the Songkick iCal feed for tracked artists, routes each event to a
+city-specific Google Calendar, and skips events already created.
 
 Required env vars:
   GCAL_CLIENT_ID
@@ -20,9 +20,18 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 
 # --- CONFIG ---
-SONGKICK_ICAL_URL = "http://www.songkick.com/users/justin-lycklama/calendars.ics"
-TARGET_CALENDAR   = "Potential Shows"
-LOOK_AHEAD_DAYS   = 180  # only create events within this window
+SONGKICK_ICAL_URL = "http://www.songkick.com/users/justin-lycklama/calendars.ics?filter=tracked_artist"
+LOOK_AHEAD_DAYS   = 180
+
+# Maps city keywords (lowercase, checked against event location) to Google Calendar name
+CITY_CALENDARS = {
+    "toronto":     "Potential Shows - Toronto",
+    "new york":    "Potential Shows - New York",
+    "brooklyn":    "Potential Shows - New York",
+    "montreal":    "Potential Shows - Montreal",
+    "seattle":     "Potential Shows - Seattle",
+    "minneapolis": "Potential Shows - Minneapolis",
+}
 
 
 # --- GOOGLE CALENDAR CLIENT ---
@@ -47,7 +56,6 @@ def find_calendar_id(service, name):
 
 # --- ICAL PARSER ---
 def parse_ical(content):
-    """Parse VEVENT blocks from iCal content, return list of event dicts."""
     events = []
     for block in re.split(r"BEGIN:VEVENT", content):
         if "END:VEVENT" not in block:
@@ -59,13 +67,13 @@ def parse_ical(content):
                 match = re.search(rf"^{name}:(.*)", block, re.MULTILINE)
             return match.group(1).strip().replace("\r", "") if match else ""
 
-        uid       = field("UID")
-        summary   = field("SUMMARY")
-        location  = field("LOCATION")
-        url       = field("URL")
-        dtstart   = field("DTSTART")
-        dtend     = field("DTEND")
-        desc      = field("DESCRIPTION")
+        uid      = field("UID")
+        summary  = field("SUMMARY")
+        location = field("LOCATION")
+        url      = field("URL")
+        dtstart  = field("DTSTART")
+        dtend    = field("DTEND")
+        desc     = field("DESCRIPTION")
 
         if not uid or not summary or not dtstart:
             continue
@@ -83,8 +91,16 @@ def parse_ical(content):
     return events
 
 
+def match_city_calendar(location):
+    """Return the Google Calendar name for this event's location, or None if no match."""
+    loc_lower = location.lower()
+    for keyword, calendar_name in CITY_CALENDARS.items():
+        if keyword in loc_lower:
+            return calendar_name
+    return None
+
+
 def parse_dt(dt_str):
-    """Parse iCal datetime string to datetime object."""
     dt_str = dt_str.strip()
     if dt_str.endswith("Z"):
         return datetime.strptime(dt_str, "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
@@ -94,7 +110,6 @@ def parse_dt(dt_str):
 
 
 def to_gcal_dt(dt_str):
-    """Convert iCal datetime string to Google Calendar dateTime dict."""
     dt = parse_dt(dt_str)
     if "T" not in dt_str and not dt_str.endswith("Z"):
         return {"date": dt.strftime("%Y-%m-%d")}
@@ -103,7 +118,6 @@ def to_gcal_dt(dt_str):
 
 # --- SYNC ---
 def get_existing_uids(service, calendar_id):
-    """Fetch existing event UIDs from the target calendar via extended properties."""
     existing = set()
     page_token = None
     now = datetime.now(timezone.utc)
@@ -133,9 +147,7 @@ def get_existing_uids(service, calendar_id):
 def create_event(service, calendar_id, event):
     dt = parse_dt(event["dtstart"])
     now = datetime.now(timezone.utc)
-    cutoff = now + timedelta(days=LOOK_AHEAD_DAYS)
-
-    if dt < now or dt > cutoff:
+    if dt < now or dt > now + timedelta(days=LOOK_AHEAD_DAYS):
         return False
 
     description = event["desc"]
@@ -143,11 +155,11 @@ def create_event(service, calendar_id, event):
         description = f"{event['url']}\n\n{description}" if description else event["url"]
 
     body = {
-        "summary":  event["summary"],
-        "location": event["location"],
+        "summary":     event["summary"],
+        "location":    event["location"],
         "description": description,
-        "start":    to_gcal_dt(event["dtstart"]),
-        "end":      to_gcal_dt(event["dtend"]) if event["dtend"] else to_gcal_dt(event["dtstart"]),
+        "start":       to_gcal_dt(event["dtstart"]),
+        "end":         to_gcal_dt(event["dtend"]) if event["dtend"] else to_gcal_dt(event["dtstart"]),
         "extendedProperties": {
             "private": {
                 "songkick":    "true",
@@ -174,21 +186,33 @@ if __name__ == "__main__":
         raise SystemExit(0)
 
     print("Connecting to Google Calendar...")
-    service     = get_calendar_service()
-    calendar_id = find_calendar_id(service, TARGET_CALENDAR)
-    print(f"  Target calendar: {TARGET_CALENDAR} ({calendar_id})")
+    service = get_calendar_service()
 
-    existing_uids = get_existing_uids(service, calendar_id)
-    print(f"  Existing Songkick events: {len(existing_uids)}")
+    # Load all city calendar IDs and their existing UIDs
+    calendar_ids = {}
+    existing_uids = {}
+    for calendar_name in set(CITY_CALENDARS.values()):
+        cal_id = find_calendar_id(service, calendar_name)
+        calendar_ids[calendar_name] = cal_id
+        existing_uids[calendar_name] = get_existing_uids(service, cal_id)
+        print(f"  {calendar_name}: {len(existing_uids[calendar_name])} existing events")
 
     created = 0
     skipped = 0
     for event in events:
-        if event["uid"] in existing_uids:
+        calendar_name = match_city_calendar(event["location"])
+        if not calendar_name:
+            print(f"  - Skipping (no city match): {event['summary']} @ {event['location']}")
             skipped += 1
             continue
-        if create_event(service, calendar_id, event):
-            print(f"  + {event['summary']}")
+
+        if event["uid"] in existing_uids[calendar_name]:
+            skipped += 1
+            continue
+
+        cal_id = calendar_ids[calendar_name]
+        if create_event(service, cal_id, event):
+            print(f"  + [{calendar_name}] {event['summary']}")
             created += 1
         else:
             skipped += 1
