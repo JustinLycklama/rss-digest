@@ -1,15 +1,16 @@
 import re
 import hashlib
-import requests
+import cloudscraper
 import xml.etree.ElementTree as ET
 from html import unescape
 
 MEDIA_NS = "http://search.yahoo.com/mrss/"
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Referer": "https://www.google.com/",
 }
+
+_scraper = cloudscraper.create_scraper()
 
 
 def _clean(text):
@@ -49,7 +50,7 @@ class RSSSource:
 
     def fetch(self) -> list[dict]:
         try:
-            r = requests.get(self.url, headers=HEADERS, timeout=15)
+            r = _scraper.get(self.url, headers=HEADERS, timeout=15)
             r.raise_for_status()
             root = ET.fromstring(r.content)
             items = []
