@@ -29,6 +29,7 @@ FEEDS = [
             RSSSource("Verge",       "https://www.theverge.com/rss/index.xml"),
             RSSSource("Ars",         "https://feeds.arstechnica.com/arstechnica/index"),
             RSSSource("CBCToronto",  "https://www.cbc.ca/cmlink/rss-canada-toronto"),
+            RSSSource("Spacing",     "https://spacing.ca/toronto/feed/"),
         ],
         filter_prompt="NOTION",
         archive_days=7,
