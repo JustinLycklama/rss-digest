@@ -36,13 +36,23 @@ FEEDS = [
     Feed(
         name="toronto_events",
         title="Toronto Events",
-        description="Local Toronto rave and party events, filtered from r/TorontoRaves",
+        description="Toronto evening and weekend events — raves, parties, and city happenings",
         sources=[
             RedditSource("TorontoRaves"),
+            RSSSource("BlogTO", "https://feeds.feedburner.com/torontoevents"),
         ],
         filter_prompt=(
-            "Only include posts about local Toronto rave or party events with a specific date or venue. "
-            "Exclude memes, gear questions, music releases, set recordings, and general discussion."
+            "Filter Toronto event listings using these rules:\n\n"
+            "INCLUDE:\n"
+            "- Evening events (starting 5pm or later on weekdays)\n"
+            "- Weekend events (any time Saturday or Sunday)\n"
+            "- Raves, DJ sets, club nights, music festivals, concerts\n"
+            "- Arts, culture, food, and general city events that fall in the above time windows\n\n"
+            "EXCLUDE:\n"
+            "- Comedy shows and stand-up events\n"
+            "- Daytime weekday events (before 5pm Monday–Friday)\n"
+            "- Memes, gear questions, music releases, set recordings, and general discussion (from Reddit)\n"
+            "- Posts without a specific date or venue"
         ),
         archive_days=30,
     ),
