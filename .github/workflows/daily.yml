@@ -21,20 +21,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate Reddit RSS feeds
-        run: python run_generate_reddit_rss.py
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-
-      - name: Restore news archive from gh-pages
+      - name: Restore archives from gh-pages
         run: |
           mkdir -p output
-          curl -f -s -o output/news_archive.json \
-            https://raw.githubusercontent.com/${{ github.repository }}/gh-pages/news_archive.json \
-            || echo "No archive found, starting fresh"
+          BASE="https://raw.githubusercontent.com/${{ github.repository }}/gh-pages"
+          for archive in news_archive.json toronto_events_archive.json starcraft_archive.json shambhala_archive.json; do
+            curl -f -s -o "output/$archive" "$BASE/$archive" || echo "No $archive found, starting fresh"
+          done
 
-      - name: Run custom scrapers (includes news digest)
-        run: python run_custom_scrapers.py
+      - name: Run pipeline
+        run: python pipeline.py
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -45,4 +41,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./output
           publish_branch: gh-pages
-          force_orphan: true  # single commit, no history — matches existing --amend approach
+          force_orphan: true

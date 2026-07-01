@@ -9,7 +9,9 @@
       "PowerShell($env:ANTHROPIC_API_KEY = [System.Environment]::GetEnvironmentVariable\\(\"ANTHROPIC_API_KEY\", \"User\"\\); python generate_subreddit_rss.py TorontoRaves \"Only include posts about local Toronto rave or party events with a specific date or venue. Exclude memes, gear questions, music releases, set recordings, and general discussion.\")",
       "PowerShell(python -c \"import requests; r = requests.get\\('https://www.reddit.com/r/TorontoRaves/new/.rss?limit=25', headers={'User-Agent': 'python:rss-digest:v1.0 \\(by /u/frownigami\\)'}\\); print\\(r.status_code, r.headers.get\\('x-ratelimit-remaining'\\), r.headers.get\\('retry-after'\\)\\)\")",
       "mcp__notion__notion-update-page",
-      "WebFetch(domain:www.songkick.com)"
+      "WebFetch(domain:www.songkick.com)",
+      "mcp__github__get_file_contents",
+      "mcp__github__list_commits"
     ]
   }
 }
