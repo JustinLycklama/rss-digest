@@ -3,6 +3,8 @@ import hashlib
 import cloudscraper
 import xml.etree.ElementTree as ET
 from html import unescape
+from email.utils import parsedate_to_datetime
+from datetime import timezone
 
 MEDIA_NS = "http://search.yahoo.com/mrss/"
 HEADERS = {
@@ -11,6 +13,26 @@ HEADERS = {
 }
 
 _scraper = cloudscraper.create_scraper()
+
+
+def _parse_date(text):
+    """Parse RFC 822 or ISO 8601 date string → RFC 822 string, or '' on failure."""
+    if not text:
+        return ""
+    text = text.strip()
+    try:
+        dt = parsedate_to_datetime(text)
+        return dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
+    except Exception:
+        pass
+    try:
+        from datetime import datetime
+        dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
+    except Exception:
+        return ""
 
 
 def _clean(text):
@@ -67,7 +89,7 @@ class RSSSource:
                         "desc":     desc[:300],
                         "link":     link,
                         "image":    _extract_image(item),
-                        "pub_date": "",
+                        "pub_date": _parse_date(item.findtext("pubDate") or ""),
                     })
 
             if not items:
@@ -78,6 +100,10 @@ class RSSSource:
                     link_el = entry.find("atom:link", ns)
                     link    = link_el.attrib.get("href", "") if link_el is not None else ""
                     if title:
+                        atom_date = (
+                            entry.findtext("atom:published", "", ns)
+                            or entry.findtext("atom:updated", "", ns)
+                        )
                         items.append({
                             "guid":     hashlib.sha1(link.encode()).hexdigest(),
                             "source":   self.name,
@@ -85,7 +111,7 @@ class RSSSource:
                             "desc":     summary[:300],
                             "link":     link,
                             "image":    _extract_image(entry),
-                            "pub_date": "",
+                            "pub_date": _parse_date(atom_date),
                         })
 
             print(f"  {self.name}: {len(items)} articles")

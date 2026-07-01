@@ -19,6 +19,7 @@ import hashlib
 import requests
 import xml.etree.ElementTree as ET
 from datetime import datetime, UTC
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 from anthropic import Anthropic
@@ -120,6 +121,25 @@ def merge_into_archive(archive, new_articles, archive_days):
     ]
     archive.sort(key=lambda a: a["added_at"], reverse=True)
     return archive
+
+
+# --- DATE FILTER ---
+def filter_by_pub_date(articles, archive_days):
+    """Drop articles with a pub_date older than archive_days. Articles with no date pass through."""
+    cutoff = datetime.now(UTC).timestamp() - archive_days * 86400
+    out = []
+    for a in articles:
+        pd = a.get("pub_date", "")
+        if not pd:
+            out.append(a)
+            continue
+        try:
+            dt = parsedate_to_datetime(pd)
+            if dt.timestamp() >= cutoff:
+                out.append(a)
+        except Exception:
+            out.append(a)
+    return out
 
 
 # --- DEDUP ---
@@ -234,6 +254,7 @@ if __name__ == "__main__":
         for source in feed.sources:
             articles.extend(source.fetch())
 
+        articles     = filter_by_pub_date(articles, feed.archive_days)
         articles     = dedup_by_title(articles)
         new_articles = [a for a in articles if a["guid"] not in archive_guids]
         print(f"  {len(new_articles)} new articles")
