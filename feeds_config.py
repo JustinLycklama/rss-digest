@@ -40,7 +40,8 @@ FEEDS = [
         description="Toronto evening and weekend events — raves, parties, and city happenings",
         sources=[
             RedditSource("TorontoRaves"),
-            RSSSource("BlogTO", "https://feeds.feedburner.com/torontoevents"),
+            RSSSource("BlogTO",      "https://www.blogto.com/rss/events.xml"),
+            RSSSource("NowToronto",  "https://nowtoronto.com/events/feed/"),
         ],
         filter_prompt=(
             "Filter Toronto event listings using these rules:\n\n"
@@ -53,7 +54,11 @@ FEEDS = [
             "- Comedy shows and stand-up events\n"
             "- Daytime weekday events (before 5pm Monday–Friday)\n"
             "- Memes, gear questions, music releases, set recordings, and general discussion (from Reddit)\n"
-            "- Posts without a specific date or venue"
+            "- Posts without a specific date or venue\n\n"
+            "PRIORITIZATION:\n"
+            "The user lives in Toronto's west end near Trinity Bellwoods. Prioritize events in or near these neighbourhoods: "
+            "Trinity-Bellwoods, Dufferin Grove, Little Portugal, Roncesvalles, Palmerston-Little Italy, West Queen West, South Parkdale, "
+            "Kensington-Chinatown, Junction, High Park, Corso Italia, Wychwood, Dovercourt, Fort York, Liberty Village."
         ),
         archive_days=30,
     ),
