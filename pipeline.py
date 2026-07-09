@@ -23,6 +23,7 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 from anthropic import Anthropic
+import argparse
 from feeds_config import FEEDS
 
 MEDIA_NS              = "http://search.yahoo.com/mrss/"
@@ -326,10 +327,16 @@ def build_rss(feed, articles):
 
 # --- MAIN ---
 if __name__ == "__main__":
-    OUTPUT_DIR.mkdir(exist_ok=True)
-    client = Anthropic() if any(f.filter_prompt for f in FEEDS) else None
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--feeds", help="Comma-separated feed names to run (default: all)")
+    args = parser.parse_args()
+    selected = set(args.feeds.split(",")) if args.feeds else None
+    feeds_to_run = [f for f in FEEDS if selected is None or f.name in selected]
 
-    for feed in FEEDS:
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    client = Anthropic() if any(f.filter_prompt for f in feeds_to_run) else None
+
+    for feed in feeds_to_run:
         print(f"\n=== {feed.name} ===")
 
         archive        = load_archive(feed.name)

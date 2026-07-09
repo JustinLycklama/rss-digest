@@ -1,9 +1,9 @@
-name: Daily RSS Digest
+name: Weekly Media Recommendations
 
 on:
   schedule:
-    - cron: '0 10 * * *'  # 10am UTC = 6am EDT, runs every day
-  workflow_dispatch:        # allows manual trigger from GitHub UI
+    - cron: '0 14 * * 1'  # Monday 2pm UTC = 10am EDT
+  workflow_dispatch:
 
 jobs:
   generate:
@@ -25,12 +25,10 @@ jobs:
         run: |
           mkdir -p output
           BASE="https://raw.githubusercontent.com/${{ github.repository }}/gh-pages"
-          for archive in news_archive.json toronto_raves_archive.json toronto_events_archive.json starcraft_archive.json shambhala_archive.json; do
-            curl -f -s -o "output/$archive" "$BASE/$archive" || echo "No $archive found, starting fresh"
-          done
+          curl -f -s -o "output/media_recs_archive.json" "$BASE/media_recs_archive.json" || echo "No media_recs_archive.json found, starting fresh"
 
       - name: Run pipeline
-        run: python pipeline.py --feeds news,toronto_raves,toronto_events,starcraft,shambhala
+        run: python pipeline.py --feeds media_recs
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
@@ -41,4 +39,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./output
           publish_branch: gh-pages
-          force_orphan: true
+          keep_files: true
