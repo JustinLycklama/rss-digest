@@ -81,7 +81,8 @@ FEEDS = [
         sources=[
             RSSSource("ReactorMag",       "https://reactormag.com/feed/"),
             RSSSource("RockPaperShotgun", "https://www.rockpapershotgun.com/feed"),
-            RSSSource("RogerEbert",       "https://www.rogerebert.com/feed"),
+            RSSSource("RogerEbert",       "https://www.rogerebert.com/feed",
+                      fallback_image="https://www.rogerebert.com/wp-content/uploads/2024/08/ebert-share-image-6ac60e3bf8145b9078bae64905b62f455a2777c754d071317a46d6886ccc74f1-jpg.webp"),
         ],
         filter_prompt="TASTE_PROFILE",
         archive_days=30,

@@ -66,10 +66,11 @@ def _extract_image(item):
 
 
 class RSSSource:
-    def __init__(self, name: str, url: str, max_items: int = 30):
+    def __init__(self, name: str, url: str, max_items: int = 30, fallback_image: str = None):
         self.name = name
         self.url = url
         self.max_items = max_items
+        self.fallback_image = fallback_image
 
     def fetch(self) -> list[dict]:
         try:
@@ -89,7 +90,7 @@ class RSSSource:
                         "title":    title,
                         "desc":     desc[:300],
                         "link":     link,
-                        "image":    _extract_image(item),
+                        "image":    _extract_image(item) or self.fallback_image,
                         "pub_date": _parse_date(item.findtext("pubDate") or ""),
                     })
 
@@ -111,7 +112,7 @@ class RSSSource:
                             "title":    title,
                             "desc":     summary[:300],
                             "link":     link,
-                            "image":    _extract_image(entry),
+                            "image":    _extract_image(entry) or self.fallback_image,
                             "pub_date": _parse_date(atom_date),
                         })
 
