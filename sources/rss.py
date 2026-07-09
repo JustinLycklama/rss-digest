@@ -6,7 +6,8 @@ from html import unescape
 from email.utils import parsedate_to_datetime
 from datetime import timezone
 
-MEDIA_NS = "http://search.yahoo.com/mrss/"
+MEDIA_NS   = "http://search.yahoo.com/mrss/"
+CONTENT_NS = "http://purl.org/rss/1.0/modules/content/"
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Referer": "https://www.google.com/",
@@ -56,7 +57,7 @@ def _extract_image(item):
         url = img.findtext("url") or img.attrib.get("url")
         if url:
             return url
-    for field in ["description", "content"]:
+    for field in ["description", "content", f"{{{CONTENT_NS}}}encoded"]:
         text = item.findtext(field) or ""
         match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', text)
         if match:

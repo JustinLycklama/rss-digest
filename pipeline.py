@@ -237,8 +237,9 @@ def dedup_by_title(articles):
 
 
 # --- CLAUDE FILTER ---
-def filter_articles(articles, filter_context, client):
+def filter_articles(articles, filter_context, client, classify_type=False):
     kept = []
+    type_schema = ', "type": "Game|Film|Book|TV|Other"' if classify_type else ""
     for i in range(0, len(articles), BATCH_SIZE):
         batch    = articles[i:i + BATCH_SIZE]
         numbered = "\n".join(
@@ -250,7 +251,7 @@ def filter_articles(articles, filter_context, client):
 {filter_context}
 
 Evaluate each article below. Return ONLY a JSON array with one object per article:
-[{{"id": 1, "decision": "INCLUDE", "reason": "one sentence reason"}}, ...]
+[{{"id": 1, "decision": "INCLUDE", "reason": "one sentence reason"{type_schema}}}, ...]
 
 Articles:
 {numbered}"""
@@ -271,6 +272,8 @@ Articles:
                 if 0 <= idx < len(batch) and d["decision"] == "INCLUDE":
                     article = batch[idx].copy()
                     article["reason"] = d.get("reason", "")
+                    if classify_type:
+                        article["media_type"] = d.get("type", "")
                     kept.append(article)
                     print(f"  + {batch[idx]['title'][:70]}")
 
@@ -291,7 +294,9 @@ def build_rss(feed, articles):
 
     for a in articles:
         item = ET.SubElement(channel, "item")
-        ET.SubElement(item, "title").text = a["title"]
+        media_type = a.get("media_type", "")
+        title = f"{media_type}: {a['title']}" if media_type and media_type != "Other" else a["title"]
+        ET.SubElement(item, "title").text = title
         ET.SubElement(item, "link").text  = a["link"]
 
         reason = a.get("reason", "")
@@ -349,7 +354,8 @@ if __name__ == "__main__":
                 prompt = feed.filter_prompt
 
             if prompt:
-                kept = filter_articles(new_articles, prompt, client)
+                classify = feed.filter_prompt == "TASTE_PROFILE"
+                kept = filter_articles(new_articles, prompt, client, classify_type=classify)
                 print(f"  Kept: {len(kept)}")
             else:
                 kept = []
