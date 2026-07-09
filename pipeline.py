@@ -30,6 +30,7 @@ OUTPUT_DIR            = Path("output")
 BATCH_SIZE            = 40
 NOTION_TOKEN          = os.environ.get("NOTION_TOKEN")
 FILTER_PAGE_ID        = "33ba1339f88a81799204f8b0d4a1ca71"
+MEDIA_RECS_FILTER_ID  = "398a1339f88a819ca5d4c6491a4d7230"
 MEDIA_COLLECTION_ID   = "1482e7dbf30d47409a002ab3413d8177"
 GOODREADS_RSS         = "https://www.goodreads.com/review/list_rss/197955244?shelf=read"
 
@@ -59,31 +60,39 @@ EXCLUDE:
 SIGNIFICANCE TEST: Would this story still matter in a week? If no, exclude it.
 """
 
-def load_notion_filter():
+def _fetch_notion_page_text(page_id):
+    """Return plain text content of a Notion page, or None on failure."""
     if not NOTION_TOKEN:
-        print("  No NOTION_TOKEN, using default filter context")
-        return DEFAULT_FILTER_CONTEXT
+        return None
     try:
-        url = f"https://api.notion.com/v1/blocks/{FILTER_PAGE_ID}/children"
+        url = f"https://api.notion.com/v1/blocks/{page_id}/children"
         headers = {
             "Authorization": f"Bearer {NOTION_TOKEN}",
             "Notion-Version": "2022-06-28",
         }
         r = requests.get(url, headers=headers, timeout=10)
         r.raise_for_status()
-        blocks = r.json().get("results", [])
         lines = []
-        for block in blocks:
+        for block in r.json().get("results", []):
             btype = block.get("type")
             rich  = block.get(btype, {}).get("rich_text", [])
             text  = "".join(t.get("plain_text", "") for t in rich)
             if text.strip():
                 lines.append(text.strip())
-        if lines:
-            print("  Loaded filter context from Notion")
-            return "\n".join(lines)
+        return "\n".join(lines) if lines else None
     except Exception as e:
-        print(f"  Could not fetch Notion filter: {e} — using defaults")
+        print(f"  Could not fetch Notion page {page_id}: {e}")
+        return None
+
+def load_notion_filter():
+    if not NOTION_TOKEN:
+        print("  No NOTION_TOKEN, using default filter context")
+        return DEFAULT_FILTER_CONTEXT
+    text = _fetch_notion_page_text(FILTER_PAGE_ID)
+    if text:
+        print("  Loaded filter context from Notion")
+        return text
+    print("  Could not fetch Notion filter — using defaults")
     return DEFAULT_FILTER_CONTEXT
 
 
@@ -141,23 +150,20 @@ def load_taste_profile():
         return None
 
     profile = "\n\n".join(parts)
+
+    rules = _fetch_notion_page_text(MEDIA_RECS_FILTER_ID)
+    if rules:
+        print("  Loaded media recs filter rules from Notion")
+    else:
+        rules = "Include recommendations for specific titles. Exclude news, trailers, announcements, and industry coverage."
+
     return f"""You are filtering media recommendation articles for a specific reader.
 
 Here is their taste profile:
-
 {profile}
 
-INCLUDE articles that:
-- Recommend a specific title with a "you should read/play/watch this" angle
-- Are retrospectives or essays making a case for why something is worth your time
-- Surface hidden gems or underrated titles
-- Recommend things that share themes, tone, or qualities with items in the taste profile
-
-EXCLUDE:
-- News, announcements, release dates, trailers, box office results
-- Industry news (studio deals, layoffs, acquisitions)
-- Reviews that don't have a clear recommendation angle
-- Anything clearly outside this reader's taste"""
+Here are the filter rules:
+{rules}"""
 
 
 # --- ARCHIVE ---
