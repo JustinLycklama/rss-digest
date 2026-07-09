@@ -25,11 +25,13 @@ from pathlib import Path
 from anthropic import Anthropic
 from feeds_config import FEEDS
 
-MEDIA_NS       = "http://search.yahoo.com/mrss/"
-OUTPUT_DIR     = Path("output")
-BATCH_SIZE     = 40
-NOTION_TOKEN   = os.environ.get("NOTION_TOKEN")
-FILTER_PAGE_ID = "33ba1339f88a81799204f8b0d4a1ca71"
+MEDIA_NS              = "http://search.yahoo.com/mrss/"
+OUTPUT_DIR            = Path("output")
+BATCH_SIZE            = 40
+NOTION_TOKEN          = os.environ.get("NOTION_TOKEN")
+FILTER_PAGE_ID        = "33ba1339f88a81799204f8b0d4a1ca71"
+MEDIA_COLLECTION_ID   = "1482e7dbf30d47409a002ab3413d8177"
+GOODREADS_RSS         = "https://www.goodreads.com/review/list_rss/197955244?shelf=read"
 
 ET.register_namespace("media", MEDIA_NS)
 
@@ -83,6 +85,79 @@ def load_notion_filter():
     except Exception as e:
         print(f"  Could not fetch Notion filter: {e} — using defaults")
     return DEFAULT_FILTER_CONTEXT
+
+
+# --- TASTE PROFILE ---
+def load_taste_profile():
+    parts = []
+
+    # Goodreads — books rated 4 or 5 stars
+    try:
+        r = requests.get(GOODREADS_RSS, timeout=15)
+        r.raise_for_status()
+        root = ET.fromstring(r.content)
+        books = []
+        for item in root.findall(".//item"):
+            title = (item.findtext("title") or "").strip()
+            rating_text = (item.findtext("user_rating") or "").strip()
+            rating = int(rating_text) if rating_text.isdigit() else 0
+            if rating >= 4 and title:
+                label = "loved it" if rating == 5 else "liked it"
+                books.append(f"- {title} ({label})")
+        if books:
+            parts.append("Books the user has rated highly:\n" + "\n".join(books[:25]))
+        print(f"  Goodreads: {len(books)} highly-rated books")
+    except Exception as e:
+        print(f"  Goodreads: failed ({e})")
+
+    # Notion Media Collection — games, film, TV
+    if NOTION_TOKEN:
+        try:
+            url = f"https://api.notion.com/v1/databases/{MEDIA_COLLECTION_ID}/query"
+            headers = {
+                "Authorization": f"Bearer {NOTION_TOKEN}",
+                "Notion-Version": "2022-06-28",
+                "Content-Type": "application/json",
+            }
+            r = requests.post(url, headers=headers, json={}, timeout=10)
+            r.raise_for_status()
+            entries = []
+            for page in r.json().get("results", []):
+                props = page.get("properties", {})
+                name  = "".join(t.get("plain_text", "") for t in props.get("Name", {}).get("title", []))
+                mtype = (props.get("Type", {}).get("select") or {}).get("name", "")
+                notes = "".join(t.get("plain_text", "") for t in props.get("Notes", {}).get("rich_text", []))
+                if name:
+                    entry = f"- {name}" + (f" ({mtype})" if mtype else "") + (f": {notes}" if notes else "")
+                    entries.append(entry)
+            if entries:
+                parts.append("Other media the user has loved (games, film, TV):\n" + "\n".join(entries))
+            print(f"  Notion collection: {len(entries)} entries")
+        except Exception as e:
+            print(f"  Notion media collection: failed ({e})")
+
+    if not parts:
+        print("  No taste profile available — skipping filter")
+        return None
+
+    profile = "\n\n".join(parts)
+    return f"""You are filtering media recommendation articles for a specific reader.
+
+Here is their taste profile:
+
+{profile}
+
+INCLUDE articles that:
+- Recommend a specific title with a "you should read/play/watch this" angle
+- Are retrospectives or essays making a case for why something is worth your time
+- Surface hidden gems or underrated titles
+- Recommend things that share themes, tone, or qualities with items in the taste profile
+
+EXCLUDE:
+- News, announcements, release dates, trailers, box office results
+- Industry news (studio deals, layoffs, acquisitions)
+- Reviews that don't have a clear recommendation angle
+- Anything clearly outside this reader's taste"""
 
 
 # --- ARCHIVE ---
@@ -260,9 +335,18 @@ if __name__ == "__main__":
         print(f"  {len(new_articles)} new articles")
 
         if feed.filter_prompt:
-            prompt = load_notion_filter() if feed.filter_prompt == "NOTION" else feed.filter_prompt
-            kept   = filter_articles(new_articles, prompt, client)
-            print(f"  Kept: {len(kept)}")
+            if feed.filter_prompt == "NOTION":
+                prompt = load_notion_filter()
+            elif feed.filter_prompt == "TASTE_PROFILE":
+                prompt = load_taste_profile()
+            else:
+                prompt = feed.filter_prompt
+
+            if prompt:
+                kept = filter_articles(new_articles, prompt, client)
+                print(f"  Kept: {len(kept)}")
+            else:
+                kept = []
         else:
             kept = new_articles
 

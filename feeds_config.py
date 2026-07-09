@@ -75,6 +75,18 @@ FEEDS = [
         archive_days=30,
     ),
     Feed(
+        name="media_recs",
+        title="Media Recommendations",
+        description="Curated book, game, and film recommendations filtered to personal taste",
+        sources=[
+            RSSSource("ReactorMag",       "https://reactormag.com/feed/"),
+            RSSSource("RockPaperShotgun", "https://www.rockpapershotgun.com/feed"),
+            RSSSource("RogerEbert",       "https://www.rogerebert.com/feed"),
+        ],
+        filter_prompt="TASTE_PROFILE",
+        archive_days=30,
+    ),
+    Feed(
         name="starcraft",
         title="StarCraft II News & Patches",
         description="Latest StarCraft II news, patch notes, and updates from Blizzard",
