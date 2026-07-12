@@ -25,12 +25,12 @@ jobs:
         run: |
           mkdir -p output
           BASE="https://raw.githubusercontent.com/${{ github.repository }}/gh-pages"
-          for archive in news_archive.json toronto_raves_archive.json toronto_events_archive.json starcraft_archive.json shambhala_archive.json; do
+          for archive in news_archive.json toronto_raves_archive.json toronto_events_archive.json media_recs_archive.json starcraft_archive.json shambhala_archive.json; do
             curl -f -s -o "output/$archive" "$BASE/$archive" || echo "No $archive found, starting fresh"
           done
 
       - name: Run pipeline
-        run: python pipeline.py --feeds news,toronto_raves,toronto_events,starcraft,shambhala
+        run: python pipeline.py
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
