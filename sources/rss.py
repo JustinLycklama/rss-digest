@@ -76,7 +76,15 @@ class RSSSource:
         try:
             r = _scraper.get(self.url, headers=HEADERS, timeout=15)
             r.raise_for_status()
-            root = ET.fromstring(r.content)
+            content = r.content
+            # Some feeds use media: prefix without declaring xmlns:media
+            if b"media:" in content and b"xmlns:media" not in content:
+                content = re.sub(
+                    rb"(<(?:rss|feed)[^>]*)",
+                    rb'\1 xmlns:media="http://search.yahoo.com/mrss/"',
+                    content, count=1,
+                )
+            root = ET.fromstring(content)
             items = []
 
             for item in root.findall(".//item")[:self.max_items]:
