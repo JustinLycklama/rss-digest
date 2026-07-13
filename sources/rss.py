@@ -105,7 +105,9 @@ class RSSSource:
                 title = _clean(item.findtext("title") or "")
                 desc  = _clean(item.findtext("description") or "")
                 link  = (item.findtext("link") or "").strip()
-                if title:
+                if not title:
+                    title = self.name
+                if link:
                     items.append({
                         "guid":     hashlib.sha1(link.encode()).hexdigest(),
                         "source":   self.name,
