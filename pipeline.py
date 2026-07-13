@@ -258,17 +258,23 @@ Evaluate each article below. Return ONLY a JSON array with one object per articl
 Articles:
 {numbered}"""
 
-        try:
-            response = client.messages.create(
-                model="claude-haiku-4-5-20251001",
-                max_tokens=2048,
-                messages=[{"role": "user", "content": prompt}],
-            )
-            raw = response.content[0].text.strip()
-            raw = re.sub(r"^```[a-z]*\n?", "", raw)
-            raw = re.sub(r"\n?```$", "", raw)
-            decisions = json.loads(raw)
+        decisions = None
+        for attempt in range(2):
+            try:
+                response = client.messages.create(
+                    model="claude-haiku-4-5-20251001",
+                    max_tokens=2048,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                raw = response.content[0].text.strip()
+                raw = re.sub(r"^```[a-z]*\n?", "", raw)
+                raw = re.sub(r"\n?```$", "", raw)
+                decisions = json.loads(raw)
+                break
+            except Exception as e:
+                print(f"  Batch {i // BATCH_SIZE + 1} attempt {attempt + 1} failed: {e}")
 
+        if decisions:
             for d in decisions:
                 idx = d["id"] - 1
                 if 0 <= idx < len(batch) and d["decision"] == "INCLUDE":
@@ -278,9 +284,6 @@ Articles:
                         article["media_type"] = d.get("type", "")
                     kept.append(article)
                     print(f"  + {batch[idx]['title'][:70]}")
-
-        except Exception as e:
-            print(f"  Batch {i // BATCH_SIZE + 1} failed: {e}")
 
     return kept
 
