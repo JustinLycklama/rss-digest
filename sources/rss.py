@@ -77,12 +77,16 @@ def _extract_image(item):
     return None
 
 
-def _fetch_page_image(url):
-    """Fetch a linked page and extract the first meaningful image."""
+def _fetch_page_image(url, element_id=None):
+    """Fetch a linked page and extract an image, optionally scoped to an element id."""
     try:
         r = _scraper.get(url, headers=HEADERS, timeout=10)
         r.raise_for_status()
-        match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', r.text)
+        html = r.text
+        if element_id:
+            m = re.search(rf'id=["\']{re.escape(element_id)}["\'][^>]*>(.*?)</div>', html, re.DOTALL)
+            html = m.group(1) if m else html
+        match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', html)
         return match.group(1) if match else None
     except Exception:
         return None
@@ -90,12 +94,14 @@ def _fetch_page_image(url):
 
 class RSSSource:
     def __init__(self, name: str, url: str, max_items: int = 30,
-                 fallback_image: str = None, fetch_page_image: bool = False):
+                 fallback_image: str = None, fetch_page_image: bool = False,
+                 page_image_id: str = None):
         self.name = name
         self.url = url
         self.max_items = max_items
         self.fallback_image = fallback_image
         self.fetch_page_image = fetch_page_image
+        self.page_image_id = page_image_id
 
     def fetch(self) -> list[dict]:
         try:
@@ -131,7 +137,7 @@ class RSSSource:
                 if link:
                     image = _extract_image(item) or self.fallback_image
                     if not image and self.fetch_page_image:
-                        image = _fetch_page_image(link)
+                        image = _fetch_page_image(link, self.page_image_id)
                     items.append({
                         "guid":     hashlib.sha1(link.encode()).hexdigest(),
                         "source":   self.name,

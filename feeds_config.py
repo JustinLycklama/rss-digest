@@ -96,7 +96,7 @@ FEEDS = [
         sources=[
             RSSSource("XKCD",           "https://xkcd.com/rss.xml"),
             RSSSource("ThreeWordPhrase", "https://threewordphrase.com/rss.xml", fetch_page_image=True),
-            RSSSource("Buttersafe",      "http://feeds.feedburner.com/buttersafe", fetch_page_image=True),
+            RSSSource("Buttersafe",      "http://feeds.feedburner.com/buttersafe", fetch_page_image=True, page_image_id="comic"),
             RSSSource("PBF",            "https://pbfcomics.com/feed/"),
             RSSSource("WebComicName",   "https://webcomicname.com/rss"),
         ],
