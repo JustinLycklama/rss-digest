@@ -1,4 +1,5 @@
 import re
+import time
 import hashlib
 import cloudscraper
 import xml.etree.ElementTree as ET
@@ -10,10 +11,13 @@ MEDIA_NS   = "http://search.yahoo.com/mrss/"
 CONTENT_NS = "http://purl.org/rss/1.0/modules/content/"
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
     "Referer": "https://www.google.com/",
 }
 
-_scraper = cloudscraper.create_scraper()
+_scraper = cloudscraper.create_scraper(
+    browser={"browser": "chrome", "platform": "windows", "mobile": False}
+)
 
 
 def _parse_date(text):
@@ -74,8 +78,18 @@ class RSSSource:
 
     def fetch(self) -> list[dict]:
         try:
-            r = _scraper.get(self.url, headers=HEADERS, timeout=15)
-            r.raise_for_status()
+            last_err = None
+            for attempt in range(3):
+                try:
+                    r = _scraper.get(self.url, headers=HEADERS, timeout=15)
+                    r.raise_for_status()
+                    break
+                except Exception as e:
+                    last_err = e
+                    if attempt < 2:
+                        time.sleep(3)
+            else:
+                raise last_err
             content = r.content
             # Some feeds use media: prefix without declaring xmlns:media
             if b"media:" in content and b"xmlns:media" not in content:
