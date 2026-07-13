@@ -310,10 +310,8 @@ def build_rss(feed, articles):
         reason = a.get("reason", "")
         source = a.get("source", "")
         desc   = a.get("desc", "")
-        if reason:
-            ET.SubElement(item, "description").text = f"<p>{desc}</p><p><em>{source} — {reason}</em></p>"
-        else:
-            ET.SubElement(item, "description").text = f"<p>{desc}</p>"
+        footer = f"{source} — {reason}" if reason else source
+        ET.SubElement(item, "description").text = f"<p>{desc}</p><p><em>{footer}</em></p>"
 
         guid_el      = ET.SubElement(item, "guid")
         guid_el.text = a["guid"]

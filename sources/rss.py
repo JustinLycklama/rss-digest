@@ -21,9 +21,10 @@ _scraper = cloudscraper.create_scraper(
 
 
 def _parse_date(text):
-    """Parse RFC 822 or ISO 8601 date string → RFC 822 string, or '' on failure."""
+    """Parse RFC 822, ISO 8601, or informal date strings → RFC 822 string, or '' on failure."""
     if not text:
         return ""
+    from datetime import datetime
     text = text.strip()
     try:
         dt = parsedate_to_datetime(text)
@@ -31,13 +32,20 @@ def _parse_date(text):
     except Exception:
         pass
     try:
-        from datetime import datetime
         dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
         return dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
     except Exception:
-        return ""
+        pass
+    # Handle informal format: "Mon, Jan 5 2024" (Three Word Phrase)
+    for fmt in ("%a, %b %d %Y", "%b %d %Y", "%B %d %Y"):
+        try:
+            dt = datetime.strptime(text, fmt)
+            return dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
+        except Exception:
+            pass
+    return ""
 
 
 def _clean(text):
@@ -69,12 +77,25 @@ def _extract_image(item):
     return None
 
 
+def _fetch_page_image(url):
+    """Fetch a linked page and extract the first meaningful image."""
+    try:
+        r = _scraper.get(url, headers=HEADERS, timeout=10)
+        r.raise_for_status()
+        match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', r.text)
+        return match.group(1) if match else None
+    except Exception:
+        return None
+
+
 class RSSSource:
-    def __init__(self, name: str, url: str, max_items: int = 30, fallback_image: str = None):
+    def __init__(self, name: str, url: str, max_items: int = 30,
+                 fallback_image: str = None, fetch_page_image: bool = False):
         self.name = name
         self.url = url
         self.max_items = max_items
         self.fallback_image = fallback_image
+        self.fetch_page_image = fetch_page_image
 
     def fetch(self) -> list[dict]:
         try:
@@ -108,13 +129,16 @@ class RSSSource:
                 if not title:
                     title = self.name
                 if link:
+                    image = _extract_image(item) or self.fallback_image
+                    if not image and self.fetch_page_image:
+                        image = _fetch_page_image(link)
                     items.append({
                         "guid":     hashlib.sha1(link.encode()).hexdigest(),
                         "source":   self.name,
                         "title":    title,
                         "desc":     desc[:300],
                         "link":     link,
-                        "image":    _extract_image(item) or self.fallback_image,
+                        "image":    image,
                         "pub_date": _parse_date(item.findtext("pubDate") or ""),
                     })
 

@@ -94,13 +94,13 @@ FEEDS = [
         description="Webcomics and lighthearted content",
         sources=[
             RSSSource("XKCD",           "https://xkcd.com/rss.xml"),
-            RSSSource("ThreeWordPhrase", "https://threewordphrase.com/rss.xml"),
+            RSSSource("ThreeWordPhrase", "https://threewordphrase.com/rss.xml", fetch_page_image=True),
             RSSSource("Buttersafe",      "http://feeds.feedburner.com/buttersafe"),
             RSSSource("PBF",            "https://pbfcomics.com/feed/"),
             RSSSource("WebComicName",   "https://webcomicname.com/rss"),
         ],
         filter_prompt=None,
-        archive_days=30,
+        archive_days=180,
     ),
     Feed(
         name="starcraft",
