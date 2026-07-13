@@ -54,7 +54,6 @@ FEEDS = [
         title="Toronto Events",
         description="Toronto evening and weekend events from BlogTO and Now Toronto",
         sources=[
-            RSSSource("TorontoLife", "https://torontolife.com/feed/"),
             RSSSource("NowToronto", "https://nowtoronto.com/events/feed/"),
         ],
         filter_prompt=(

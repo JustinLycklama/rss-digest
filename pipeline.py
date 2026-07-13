@@ -29,7 +29,7 @@ from sources.rss import _scraper
 
 MEDIA_NS              = "http://search.yahoo.com/mrss/"
 OUTPUT_DIR            = Path("output")
-BATCH_SIZE            = 40
+BATCH_SIZE            = 20
 NOTION_TOKEN          = os.environ.get("NOTION_TOKEN")
 FILTER_PAGE_ID        = "33ba1339f88a81799204f8b0d4a1ca71"
 MEDIA_RECS_FILTER_ID  = "398a1339f88a819ca5d4c6491a4d7230"
@@ -269,7 +269,10 @@ Articles:
                 raw = response.content[0].text.strip()
                 raw = re.sub(r"^```[a-z]*\n?", "", raw)
                 raw = re.sub(r"\n?```$", "", raw)
-                decisions = json.loads(raw)
+                match = re.search(r"\[.*\]", raw, re.DOTALL)
+                if not match:
+                    raise ValueError("No JSON array found in response")
+                decisions = json.loads(match.group(0))
                 break
             except Exception as e:
                 print(f"  Batch {i // BATCH_SIZE + 1} attempt {attempt + 1} failed: {e}")
