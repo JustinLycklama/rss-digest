@@ -90,6 +90,19 @@ FEEDS = [
         archive_days=30,
     ),
     Feed(
+        name="fun",
+        title="Comics & Lighthearted",
+        description="Webcomics and lighthearted content",
+        sources=[
+            RSSSource("XKCD",           "https://xkcd.com/rss.xml"),
+            RSSSource("ThreeWordPhrase", "https://threewordphrase.com/rss.xml"),
+            RSSSource("Buttersafe",      "http://feeds.feedburner.com/buttersafe"),
+            RSSSource("PBF",             "https://pbfcomics.com/feed/"),
+        ],
+        filter_prompt=None,
+        archive_days=30,
+    ),
+    Feed(
         name="starcraft",
         title="StarCraft II News & Patches",
         description="Latest StarCraft II news, patch notes, and updates from Blizzard",
