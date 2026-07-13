@@ -25,6 +25,7 @@ from pathlib import Path
 from anthropic import Anthropic
 import argparse
 from feeds_config import FEEDS
+from sources.rss import _scraper
 
 MEDIA_NS              = "http://search.yahoo.com/mrss/"
 OUTPUT_DIR            = Path("output")
@@ -103,7 +104,7 @@ def load_taste_profile():
 
     # Goodreads — books rated 4 or 5 stars
     try:
-        r = requests.get(GOODREADS_RSS, timeout=15)
+        r = _scraper.get(GOODREADS_RSS, timeout=15)
         r.raise_for_status()
         root = ET.fromstring(r.content)
         books = []
