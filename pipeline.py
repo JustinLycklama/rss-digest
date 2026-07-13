@@ -354,6 +354,8 @@ if __name__ == "__main__":
 
         articles     = filter_by_pub_date(articles, feed.archive_days)
         articles     = dedup_by_title(articles)
+        if feed.require_image:
+            articles = [a for a in articles if a.get("image")]
         new_articles = [a for a in articles if a["guid"] not in archive_guids]
         print(f"  {len(new_articles)} new articles")
 

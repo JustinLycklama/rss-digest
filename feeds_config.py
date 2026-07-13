@@ -13,6 +13,7 @@ class Feed:
     sources: list           # list of source objects
     filter_prompt: str | None = None  # None = no Claude filter, "NOTION" = load from Notion
     archive_days: int = 7
+    require_image: bool = False
 
 
 FEEDS = [
@@ -101,6 +102,7 @@ FEEDS = [
         ],
         filter_prompt=None,
         archive_days=180,
+        require_image=True,
     ),
     Feed(
         name="starcraft",
