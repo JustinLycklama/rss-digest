@@ -18,7 +18,7 @@ import json
 import hashlib
 import requests
 import xml.etree.ElementTree as ET
-from datetime import datetime, UTC
+from datetime import datetime, timedelta, UTC
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
@@ -292,7 +292,7 @@ Articles:
 
 
 # --- RSS OUTPUT ---
-def build_rss(feed, articles):
+def build_rss(feed, articles, feed_index=0):
     rss     = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
     ET.SubElement(channel, "title").text        = feed.title
@@ -300,7 +300,8 @@ def build_rss(feed, articles):
     ET.SubElement(channel, "description").text  = feed.description
     ET.SubElement(channel, "lastBuildDate").text = datetime.now(UTC).strftime("%a, %d %b %Y %H:%M:%S +0000")
 
-    for a in articles:
+    now = datetime.now(UTC)
+    for i, a in enumerate(articles):
         item = ET.SubElement(channel, "item")
         media_type = a.get("media_type", "")
         title = f"{media_type}: {a['title']}" if media_type and media_type != "Other" else a["title"]
@@ -317,8 +318,11 @@ def build_rss(feed, articles):
         guid_el.text = a["guid"]
         guid_el.set("isPermaLink", "false")
 
-        if a.get("pub_date"):
-            ET.SubElement(item, "pubDate").text = a["pub_date"]
+        # Synthetic pubDate: interleave feeds by offsetting each feed by 3 min,
+        # and spacing items within a feed 10 min apart, newest first.
+        offset = timedelta(minutes=i * 10 + feed_index * 3)
+        pub_date = (now - offset).strftime("%a, %d %b %Y %H:%M:%S +0000")
+        ET.SubElement(item, "pubDate").text = pub_date
 
         if a.get("image"):
             mc = ET.SubElement(item, f"{{{MEDIA_NS}}}content")
@@ -341,7 +345,7 @@ if __name__ == "__main__":
     OUTPUT_DIR.mkdir(exist_ok=True)
     client = Anthropic() if any(f.filter_prompt for f in feeds_to_run) else None
 
-    for feed in feeds_to_run:
+    for feed_index, feed in enumerate(feeds_to_run):
         print(f"\n=== {feed.name} ===")
 
         archive        = load_archive(feed.name)
@@ -379,6 +383,6 @@ if __name__ == "__main__":
         archive = merge_into_archive(archive, kept, feed.archive_days)
         save_archive(feed.name, archive)
 
-        build_rss(feed, archive)
+        build_rss(feed, archive, feed_index)
 
     print("\nDone.")
