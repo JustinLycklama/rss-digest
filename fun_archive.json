@@ -1,0 +1,992 @@
+[
+  {
+    "guid": "0c8827b291b3ea95d33a028440b9caf77ae17d84",
+    "source": "XKCD",
+    "title": "Asteroid Mission",
+    "desc": "",
+    "link": "https://xkcd.com/3294/",
+    "image": "https://imgs.xkcd.com/comics/asteroid_mission.png",
+    "pub_date": "Fri, 04 Sep 2026 04:00:00 +0000",
+    "added_at": "2026-09-05T13:17:31.748905+00:00"
+  },
+  {
+    "guid": "86e59056475463355a3dcfb18871343898b41795",
+    "source": "XKCD",
+    "title": "Handedness",
+    "desc": "",
+    "link": "https://xkcd.com/3293/",
+    "image": "https://imgs.xkcd.com/comics/handedness.png",
+    "pub_date": "Wed, 02 Sep 2026 04:00:00 +0000",
+    "added_at": "2026-09-03T14:13:02.643396+00:00"
+  },
+  {
+    "guid": "45b77144f0f2598ca0874d68e50e5b66980a3e69",
+    "source": "Buttersafe",
+    "title": "The Fisherman’s Fib",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/08/27/the-fishermans-fib/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-08-27-TheFishermansFibRSS.jpg",
+    "pub_date": "Thu, 27 Aug 2026 07:01:00 +0000",
+    "added_at": "2026-09-03T14:13:02.643396+00:00"
+  },
+  {
+    "guid": "0a9027970dc3a4f778a59addab569ce0380073ba",
+    "source": "Buttersafe",
+    "title": "Underground Combat",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/08/20/underground-combat/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-08-20-UndergroundCombatRSS.jpg",
+    "pub_date": "Thu, 20 Aug 2026 07:01:00 +0000",
+    "added_at": "2026-09-03T14:13:02.643396+00:00"
+  },
+  {
+    "guid": "650d96e9fe2a4baeb82905e3fa24df593c8ce08d",
+    "source": "Buttersafe",
+    "title": "Mixed Laundry",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/08/13/mixed-laundry/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-08-13-MixedLaundryRSS.jpg",
+    "pub_date": "Thu, 13 Aug 2026 07:01:00 +0000",
+    "added_at": "2026-09-03T14:13:02.643396+00:00"
+  },
+  {
+    "guid": "a33fd2ca8f179bbab70c6eb813f255ce46c8e2ad",
+    "source": "Buttersafe",
+    "title": "Guardian Angel",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/08/06/guardian-angel/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-08-06-GuardianAngelRSS.jpg",
+    "pub_date": "Thu, 06 Aug 2026 07:01:00 +0000",
+    "added_at": "2026-09-03T14:13:02.643396+00:00"
+  },
+  {
+    "guid": "11184ff084726a1571c15cb066a43ab17d9c4f28",
+    "source": "Buttersafe",
+    "title": "Innovation in the World of Trains",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/07/30/innovation-in-the-world-of-trains/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-07-30-InnovationInTheWorldOfTrainsRSS.jpg",
+    "pub_date": "Thu, 30 Jul 2026 07:01:00 +0000",
+    "added_at": "2026-09-03T14:13:02.643396+00:00"
+  },
+  {
+    "guid": "bfd9b7a7666e050b6732b9a8e4b22e260bbb00c9",
+    "source": "Buttersafe",
+    "title": "How To Forget",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/07/23/how-to-forget/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-07-23-HowToForgetRSS.jpg",
+    "pub_date": "Thu, 23 Jul 2026 07:01:00 +0000",
+    "added_at": "2026-09-03T14:13:02.643396+00:00"
+  },
+  {
+    "guid": "b3e3b2e3b858dd9d7a35aaa272c9887c83bb670f",
+    "source": "Buttersafe",
+    "title": "The Suns Judgment",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/07/16/the-suns-judgment/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-07-16-TheSunsJudgmentRSS.jpg",
+    "pub_date": "Thu, 16 Jul 2026 07:01:00 +0000",
+    "added_at": "2026-09-03T14:13:02.643396+00:00"
+  },
+  {
+    "guid": "5f640531310eba251af34f20310b1fac2afe189e",
+    "source": "XKCD",
+    "title": "Geology Class",
+    "desc": "",
+    "link": "https://xkcd.com/3292/",
+    "image": "https://imgs.xkcd.com/comics/geology_class.png",
+    "pub_date": "Mon, 31 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-09-01T14:35:44.246533+00:00"
+  },
+  {
+    "guid": "4e3c5a6922a7934b01a8ea11987d11e9d428c474",
+    "source": "XKCD",
+    "title": "Launchpad",
+    "desc": "",
+    "link": "https://xkcd.com/3291/",
+    "image": "https://imgs.xkcd.com/comics/launchpad.png",
+    "pub_date": "Fri, 28 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-28T21:08:36.065609+00:00"
+  },
+  {
+    "guid": "c594cfb9916013422b18a7a144b39ef7637b1f69",
+    "source": "XKCD",
+    "title": "Trade",
+    "desc": "",
+    "link": "https://xkcd.com/3290/",
+    "image": "https://imgs.xkcd.com/comics/trade.png",
+    "pub_date": "Wed, 26 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-27T20:11:41.736761+00:00"
+  },
+  {
+    "guid": "04eb28a8cb86fe4b33d4ee23995a1bd4641e883d",
+    "source": "XKCD",
+    "title": "Highway Signs",
+    "desc": "",
+    "link": "https://xkcd.com/3289/",
+    "image": "https://imgs.xkcd.com/comics/highway_signs.png",
+    "pub_date": "Mon, 24 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-25T10:34:26.260560+00:00"
+  },
+  {
+    "guid": "ffdb0dd252e48982c4e9e0f006a3f7273a743ebe",
+    "source": "XKCD",
+    "title": "xkcd store reopening",
+    "desc": "",
+    "link": "https://store.xkcd.com/",
+    "image": "https://imgs.xkcd.com/store_news/news_back.png",
+    "pub_date": "Fri, 21 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-22T10:24:18.080594+00:00"
+  },
+  {
+    "guid": "e7844dd1dce213657c23b49e11756cda203b05e9",
+    "source": "XKCD",
+    "title": "Archery Feat",
+    "desc": "",
+    "link": "https://xkcd.com/3288/",
+    "image": "https://imgs.xkcd.com/comics/archery_feat.png",
+    "pub_date": "Fri, 21 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-22T10:24:18.080594+00:00"
+  },
+  {
+    "guid": "93514de55882fd7c47bace88c99f397a602b8c0b",
+    "source": "WebComicName",
+    "title": "WebComicName",
+    "desc": "",
+    "link": "https://webcomicname.com/post/825471472451665920",
+    "image": "https://64.media.tumblr.com/146f353d0a90c1baefd77a8173310878/ebbf28d3bf635c69-b1/s640x960/6ada9d2577d47e6d61c58a881e71f402bdf333c0.png",
+    "pub_date": "Thu, 20 Aug 2026 14:02:22 +0000",
+    "added_at": "2026-08-21T10:31:45.603331+00:00"
+  },
+  {
+    "guid": "fdee570ba4865f3e0f882180a967c03637fba072",
+    "source": "XKCD",
+    "title": "Perseids",
+    "desc": "",
+    "link": "https://xkcd.com/3287/",
+    "image": "https://imgs.xkcd.com/comics/perseids.png",
+    "pub_date": "Wed, 19 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-20T10:31:35.287843+00:00"
+  },
+  {
+    "guid": "65deafab6da7052ba312ea1d428528c959c130d7",
+    "source": "XKCD",
+    "title": "Particle Physics Equipment",
+    "desc": "",
+    "link": "https://xkcd.com/3286/",
+    "image": "https://imgs.xkcd.com/comics/particle_physics_equipment.png",
+    "pub_date": "Mon, 17 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-19T10:30:09.294563+00:00"
+  },
+  {
+    "guid": "f480cfd1c642a35ac2c03e41df64cd3b9841453d",
+    "source": "WebComicName",
+    "title": "WebComicName",
+    "desc": "",
+    "link": "https://webcomicname.com/post/825211725463912448",
+    "image": "https://64.media.tumblr.com/d3c0db592f9e7d9c5b0a727c855c6a02/ed566a8e55801e66-80/s640x960/d7ac1cf56e3952a6096e7be2b416006161bf7c93.png",
+    "pub_date": "Mon, 17 Aug 2026 17:13:48 +0000",
+    "added_at": "2026-08-18T10:29:29.678323+00:00"
+  },
+  {
+    "guid": "7c23e678a5a741bd78eba5fc154c2a188c17b565",
+    "source": "XKCD",
+    "title": "Accretionary Arc",
+    "desc": "",
+    "link": "https://xkcd.com/3285/",
+    "image": "https://imgs.xkcd.com/comics/accretionary_arc.png",
+    "pub_date": "Fri, 14 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-15T10:23:34.469498+00:00"
+  },
+  {
+    "guid": "73a83ec549a94f3dc21e7dafaaf53973c0d14b6c",
+    "source": "WebComicName",
+    "title": "WebComicName",
+    "desc": "",
+    "link": "https://webcomicname.com/post/824925605708660736",
+    "image": "https://64.media.tumblr.com/fb8928f6fedc8d39b112a199683b8f75/4cfc02bb16bb27ed-45/s640x960/9e96a88a44dd92c4a0e7c482b77e452eb8980cdc.png",
+    "pub_date": "Fri, 14 Aug 2026 13:26:03 +0000",
+    "added_at": "2026-08-15T10:23:34.469498+00:00"
+  },
+  {
+    "guid": "4d5cdf5317d8afb4a864954ca11c325ad0dda51d",
+    "source": "WebComicName",
+    "title": "WebComicName",
+    "desc": "",
+    "link": "https://webcomicname.com/post/824842677720891392",
+    "image": "https://64.media.tumblr.com/36ca927594fb873ce6cd0acba61d9f0b/a83733bbb233d6a8-71/s640x960/7528658e935802c08244222c306d0942b5583767.png",
+    "pub_date": "Thu, 13 Aug 2026 15:27:56 +0000",
+    "added_at": "2026-08-14T10:59:09.133359+00:00"
+  },
+  {
+    "guid": "f4e0ca9754fc1710ef1c4e694fb42a9e05a5d488",
+    "source": "XKCD",
+    "title": "Geology Building",
+    "desc": "",
+    "link": "https://xkcd.com/3284/",
+    "image": "https://imgs.xkcd.com/comics/geology_building.png",
+    "pub_date": "Wed, 12 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-13T11:02:08.368311+00:00"
+  },
+  {
+    "guid": "ac8e4e1304cadfe8807f22b9b923ddaafe9aaf75",
+    "source": "WebComicName",
+    "title": "WebComicName",
+    "desc": "",
+    "link": "https://webcomicname.com/post/824755974635159552",
+    "image": "https://64.media.tumblr.com/4097317d2b28d3b299ad17d623dc8f9d/d69470e2b2b0299c-5b/s640x960/5d81d43771b62de3df149b7e982adecaa10d682b.png",
+    "pub_date": "Wed, 12 Aug 2026 16:29:50 +0000",
+    "added_at": "2026-08-13T11:02:08.368311+00:00"
+  },
+  {
+    "guid": "57c35169bc2ce7fc18b639a1f37411ae114bee28",
+    "source": "XKCD",
+    "title": "Size and Lifespan",
+    "desc": "",
+    "link": "https://xkcd.com/3283/",
+    "image": "https://imgs.xkcd.com/comics/size_and_lifespan.png",
+    "pub_date": "Mon, 10 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-11T10:52:05.544044+00:00"
+  },
+  {
+    "guid": "5b7a38f8f3faacfb27ec948158be7c393caeec5d",
+    "source": "XKCD",
+    "title": "Trick Play",
+    "desc": "",
+    "link": "https://xkcd.com/3282/",
+    "image": "https://imgs.xkcd.com/comics/trick_play.png",
+    "pub_date": "Fri, 07 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-08T10:34:03.480986+00:00"
+  },
+  {
+    "guid": "1b6bcde51b1a7e4454e43a954a6d6379e628f434",
+    "source": "PBF",
+    "title": "The Biclops",
+    "desc": "The post The Biclops appeared first on The Perry Bible Fellowship.",
+    "link": "https://pbfcomics.com/comics/the-biclops/",
+    "image": "https://pbfcomics.com/wp-content/uploads/2026/08/PBF-The_Biclops.png",
+    "pub_date": "Thu, 06 Aug 2026 20:20:20 +0000",
+    "added_at": "2026-08-07T10:54:24.410483+00:00"
+  },
+  {
+    "guid": "7de54739dc71984c8abd9456bd3e5e4cf656b8ef",
+    "source": "XKCD",
+    "title": "Antiques Roadshow",
+    "desc": "",
+    "link": "https://xkcd.com/3281/",
+    "image": "https://imgs.xkcd.com/comics/antiques_roadshow.png",
+    "pub_date": "Wed, 05 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-06T12:03:51.758476+00:00"
+  },
+  {
+    "guid": "a3978c1ebe5fb75b9648a134cc9cf97e8adbc0f3",
+    "source": "XKCD",
+    "title": "Maze",
+    "desc": "",
+    "link": "https://xkcd.com/3280/",
+    "image": "https://imgs.xkcd.com/comics/maze.png",
+    "pub_date": "Mon, 03 Aug 2026 04:00:00 +0000",
+    "added_at": "2026-08-04T12:03:55.359707+00:00"
+  },
+  {
+    "guid": "69fc5100b843d18ebf755e494d762ba610d088cb",
+    "source": "XKCD",
+    "title": "Main Span",
+    "desc": "",
+    "link": "https://xkcd.com/3279/",
+    "image": "https://imgs.xkcd.com/comics/main_span.png",
+    "pub_date": "Fri, 31 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-08-01T11:19:03.993758+00:00"
+  },
+  {
+    "guid": "b89cc2a3f4b09c401ec708a507ddf534ad91df3d",
+    "source": "XKCD",
+    "title": "Vera Rubin Observatory",
+    "desc": "",
+    "link": "https://xkcd.com/3278/",
+    "image": "https://imgs.xkcd.com/comics/vera_rubin_observatory.png",
+    "pub_date": "Wed, 29 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-30T11:53:32.098644+00:00"
+  },
+  {
+    "guid": "86e46d31beeb1ed2d1bae9262fff3aa4bf529c50",
+    "source": "XKCD",
+    "title": "Forth",
+    "desc": "",
+    "link": "https://xkcd.com/3277/",
+    "image": "https://imgs.xkcd.com/comics/forth.png",
+    "pub_date": "Mon, 27 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-28T11:59:38.205553+00:00"
+  },
+  {
+    "guid": "9f65dacdedf2e468ef20f682d7046543fcc2effd",
+    "source": "XKCD",
+    "title": "Recursive Trucker's Hitch",
+    "desc": "",
+    "link": "https://xkcd.com/3276/",
+    "image": "https://imgs.xkcd.com/comics/recursive_truckers_hitch.png",
+    "pub_date": "Fri, 24 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-25T11:11:48.880102+00:00"
+  },
+  {
+    "guid": "6d50258a89d9ba21cf7be3812e6e7eb60c5aef68",
+    "source": "XKCD",
+    "title": "Calibration Nobel",
+    "desc": "",
+    "link": "https://xkcd.com/3275/",
+    "image": "https://imgs.xkcd.com/comics/calibration_nobel.png",
+    "pub_date": "Wed, 22 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-23T11:52:00.460124+00:00"
+  },
+  {
+    "guid": "29de5d561ca2310e87a339b608c4be8041aaff4b",
+    "source": "XKCD",
+    "title": "Arthurian Connector",
+    "desc": "",
+    "link": "https://xkcd.com/3274/",
+    "image": "https://imgs.xkcd.com/comics/arthurian_connector.png",
+    "pub_date": "Mon, 20 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-21T11:47:59.939168+00:00"
+  },
+  {
+    "guid": "9f7f584416f724e66d8e505d3efb42614fed642c",
+    "source": "PBF",
+    "title": "Beautiful Universe",
+    "desc": "The post Beautiful Universe appeared first on The Perry Bible Fellowship.",
+    "link": "https://pbfcomics.com/comics/beautiful-universe/",
+    "image": "https://pbfcomics.com/wp-content/uploads/2026/07/PBF-Beautiful-Universe.png",
+    "pub_date": "Tue, 21 Jul 2026 03:24:50 +0000",
+    "added_at": "2026-07-21T11:47:59.939168+00:00"
+  },
+  {
+    "guid": "fca2c7333fee3af6c497353cd8bc45dbac54102d",
+    "source": "XKCD",
+    "title": "Latitude and Longitude",
+    "desc": "",
+    "link": "https://xkcd.com/3273/",
+    "image": "https://imgs.xkcd.com/comics/latitude_and_longitude.png",
+    "pub_date": "Fri, 17 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-18T11:05:28.015432+00:00"
+  },
+  {
+    "guid": "933de58610e1aa5704986f1b6ceb560fcd42db52",
+    "source": "XKCD",
+    "title": "Time Change",
+    "desc": "",
+    "link": "https://xkcd.com/3272/",
+    "image": "https://imgs.xkcd.com/comics/time_change.png",
+    "pub_date": "Wed, 15 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-16T11:41:35.891005+00:00"
+  },
+  {
+    "guid": "145514a3ef5ab69cc46d34ebc29c339e01368fee",
+    "source": "Buttersafe",
+    "title": "The Mermaid’s Wish",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/07/09/the-mermaids-wish/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-07-09-TheMermaidsWishRSS.jpg",
+    "pub_date": "Thu, 09 Jul 2026 07:01:00 +0000",
+    "added_at": "2026-07-16T11:41:35.891005+00:00"
+  },
+  {
+    "guid": "9de5ea66c8e0a31fa2468f0ded04fbcdb4153ff4",
+    "source": "Buttersafe",
+    "title": "From The Ashes",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/07/02/from-the-ashes/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-07-02-FromTheAshesRSS.jpg",
+    "pub_date": "Thu, 02 Jul 2026 07:01:00 +0000",
+    "added_at": "2026-07-16T11:41:35.891005+00:00"
+  },
+  {
+    "guid": "34f3a3b3ab71891c20f869fa3b5c8afe7051ad09",
+    "source": "XKCD",
+    "title": "The Princess and the Pea",
+    "desc": "",
+    "link": "https://xkcd.com/3271/",
+    "image": "https://imgs.xkcd.com/comics/the_princess_and_the_pea.png",
+    "pub_date": "Mon, 13 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-14T11:27:48.191734+00:00"
+  },
+  {
+    "guid": "c60db1a911e53f939e02f7099777f717a53e8203",
+    "source": "Buttersafe",
+    "title": "No Hands",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/06/11/no-hands/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-06-11-NoHandsRSS.jpg",
+    "pub_date": "Thu, 11 Jun 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "b1d16503d30efd833fa8e81ffbfd2fff8ebd93a1",
+    "source": "Buttersafe",
+    "title": "Big Long Cigarette So Long It Goes Into The Sky Comics",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/06/04/big-long-cigarette-so-long-it-goes-into-the-sky-comics/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-06-04-BigLongCigaretteComicsRSS.jpg",
+    "pub_date": "Thu, 04 Jun 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "e653c85cad9018d73f694936fcdf79c692414bb5",
+    "source": "Buttersafe",
+    "title": "Always Late Larry",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/05/28/always-late-larry/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-05-28-AlwaysLateLarryRSS.jpg",
+    "pub_date": "Thu, 28 May 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "b67ec7fe71c016fcf4e2920d064e0bafb21a0ae3",
+    "source": "Buttersafe",
+    "title": "Letting Go",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/05/21/letting-go/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-05-21-LettingGoRSS.jpg",
+    "pub_date": "Thu, 21 May 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "eeb5a13849d3cebae0ff6149cbd905bfda214f43",
+    "source": "Buttersafe",
+    "title": "Your Destination",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/05/14/your-destination/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-05-14-YourDestinationRSS.jpg",
+    "pub_date": "Thu, 14 May 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "f0627d05fa233baa4ce0b1f84ddfc8f72ff9bf88",
+    "source": "Buttersafe",
+    "title": "A Figure in the Periphery",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/05/07/a-figure-in-the-periphery/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-05-07-AFigureInThePeripheryRSS.jpg",
+    "pub_date": "Thu, 07 May 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "4c48160b6e637d451a4ab3a7406577449ccb9b7e",
+    "source": "Buttersafe",
+    "title": "It’s Alive",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/04/30/its-alive-2/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-04-30-ItsAliveRSS.jpg",
+    "pub_date": "Thu, 30 Apr 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "54d76dbf3a12e5f2aba697f1e475edf976edf55b",
+    "source": "Buttersafe",
+    "title": "Where Do You See Yourself?",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/04/23/where-do-you-see-yourself/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-04-23-WhereDoYouSeeYourselfRSS.jpg",
+    "pub_date": "Thu, 23 Apr 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "e5c57b584b2e2fb1684d4be19ed5646456016010",
+    "source": "Buttersafe",
+    "title": "Guilloteens",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/04/16/guilloteens/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-04-16-GuilloteensRSS.jpg",
+    "pub_date": "Thu, 16 Apr 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "ba74878024a82bf5700ecc352d5ed20dd6ce6d60",
+    "source": "Buttersafe",
+    "title": "Best Friends Forever",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/04/09/best-friends-forever/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-04-09-BestFriendsForeverRSS.jpg",
+    "pub_date": "Thu, 09 Apr 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "4a221136eb59c1ccd0383fc3e279debaace0b44d",
+    "source": "Buttersafe",
+    "title": "Look Both Ways",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/04/02/look-both-ways/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-04-02-LookBothWaysRSS.jpg",
+    "pub_date": "Thu, 02 Apr 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "bc530e28609cc1ff9672f74c5f2b32f7bd395863",
+    "source": "Buttersafe",
+    "title": "No Catch",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/03/26/no-catch/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-03-26-NoCatchRSS.jpg",
+    "pub_date": "Thu, 26 Mar 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "60a30ce91afaf45cac5d91d5c8743c17c13ca5a2",
+    "source": "Buttersafe",
+    "title": "A Photo of Us",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/03/19/a-photo-of-us/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-03-19-APhotoOfUsRSS.jpg",
+    "pub_date": "Thu, 19 Mar 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "766cd523c78aa12a87be17e9e758a40182fd4697",
+    "source": "Buttersafe",
+    "title": "Martial Arts Master",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/03/12/martial-arts-master/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-03-12-MartialArtsMasterRSS.jpg",
+    "pub_date": "Thu, 12 Mar 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "61678f59674d7fca4b957c2735cffb3cf6b267a8",
+    "source": "Buttersafe",
+    "title": "Nominative Determinism Comics",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/03/05/nominative-determinism-comics/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-03-05-NominativeDeterminismComicsRSS.jpg",
+    "pub_date": "Thu, 05 Mar 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "3fcdde72b3d28af7e2fd93e3f995d44e2eb7c224",
+    "source": "Buttersafe",
+    "title": "Too Hot, Too Cold",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/02/26/too-hot-too-cold/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-02-26-TooHotTooColdRSS.jpg",
+    "pub_date": "Thu, 26 Feb 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "0a4b712654f880ad4e23c34b62eb13871a3f7d8b",
+    "source": "Buttersafe",
+    "title": "You Complete Me",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/02/19/you-complete-me/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-02-19-YouCompleteMeRSS.jpg",
+    "pub_date": "Thu, 19 Feb 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "eebba1ec19eed55287dd94ab76cfbfa7116b1399",
+    "source": "PBF",
+    "title": "Endgame",
+    "desc": "The post Endgame appeared first on The Perry Bible Fellowship.",
+    "link": "https://pbfcomics.com/comics/endgame/",
+    "image": "https://pbfcomics.com/wp-content/uploads/2026/04/PBF-Endgame.png",
+    "pub_date": "Thu, 02 Apr 2026 15:46:59 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "43e09d2e40f7c3a98fcabcad16d9df0f45960835",
+    "source": "PBF",
+    "title": "Buzz",
+    "desc": "The post Buzz appeared first on The Perry Bible Fellowship.",
+    "link": "https://pbfcomics.com/comics/buzz/",
+    "image": "https://pbfcomics.com/wp-content/uploads/2026/01/PBF-Buzz-2.png",
+    "pub_date": "Fri, 30 Jan 2026 17:15:22 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "dc503d1f9c0dad3f72f86278225434e9ebd3e40b",
+    "source": "PBF",
+    "title": "Artist",
+    "desc": "The post Artist appeared first on The Perry Bible Fellowship.",
+    "link": "https://pbfcomics.com/comics/artist/",
+    "image": "https://pbfcomics.com/wp-content/uploads/2026/01/PBF_Artist.png",
+    "pub_date": "Wed, 21 Jan 2026 19:15:56 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "329f0991038401712ee103033f2e39db468794bf",
+    "source": "WebComicName",
+    "title": "WebComicName",
+    "desc": "",
+    "link": "https://webcomicname.com/post/810627045336956928",
+    "image": "https://64.media.tumblr.com/35798e9a7008374209b98403a4adf8b9/cf9a1a60c0ab68c4-ba/s640x960/aae5c8706401eda60799c7a9c4cba3685e974708.png",
+    "pub_date": "Mon, 09 Mar 2026 16:36:33 +0000",
+    "added_at": "2026-07-13T03:53:35.594610+00:00"
+  },
+  {
+    "guid": "e5e0f3342702e01893369d61ef2a0843de2da86d",
+    "source": "XKCD",
+    "title": "Toasting Marshmallows",
+    "desc": "",
+    "link": "https://xkcd.com/3270/",
+    "image": "https://imgs.xkcd.com/comics/toasting_marshmallows.png",
+    "pub_date": "Fri, 10 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "58436beadd153af3bbefddb648f17a6dd4be4664",
+    "source": "XKCD",
+    "title": "Airport Meeting",
+    "desc": "",
+    "link": "https://xkcd.com/3269/",
+    "image": "https://imgs.xkcd.com/comics/airport_meeting.png",
+    "pub_date": "Wed, 08 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "5d0ab56c142c2ba21aabd2a74fae4fb12b2013c5",
+    "source": "XKCD",
+    "title": "Offside",
+    "desc": "",
+    "link": "https://xkcd.com/3268/",
+    "image": "https://imgs.xkcd.com/comics/offside.png",
+    "pub_date": "Mon, 06 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "1d0ece5ee839617787908f17278aa2cdc7f67587",
+    "source": "XKCD",
+    "title": "Types of Tornado Alert",
+    "desc": "",
+    "link": "https://xkcd.com/3267/",
+    "image": "https://imgs.xkcd.com/comics/types_of_tornado_alert.png",
+    "pub_date": "Fri, 03 Jul 2026 04:00:00 +0000",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "5f97523c7267c8d0f54e3c0c3b2347690621c5df",
+    "source": "ThreeWordPhrase",
+    "title": "Unfathomable",
+    "desc": "that's cthulhu",
+    "link": "http://threewordphrase.com/unfathomable.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "cc8161b247eb68e2490f4cac118a608d8b2c3b54",
+    "source": "ThreeWordPhrase",
+    "title": "Fine",
+    "desc": "muscles",
+    "link": "http://threewordphrase.com/fine.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "14b8ab7b0d594345e76b7960fac0071eca78b468",
+    "source": "ThreeWordPhrase",
+    "title": "Muscles",
+    "desc": "muscles",
+    "link": "http://threewordphrase.com/muscles.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "9d9593b37c973e3ce599da13edd4268a0482df93",
+    "source": "ThreeWordPhrase",
+    "title": "Fishing",
+    "desc": "fishing",
+    "link": "http://threewordphrase.com/fishing.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "0125d4d617935e8cdb44c26963a71bc67e54d5f0",
+    "source": "ThreeWordPhrase",
+    "title": "Mission",
+    "desc": "mission",
+    "link": "http://threewordphrase.com/mission.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "eed4d1598aabaaf59f163bbd27ba30507a70c8b2",
+    "source": "ThreeWordPhrase",
+    "title": "Return",
+    "desc": "return",
+    "link": "http://threewordphrase.com/return.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "f0c76bf21c7aedbf8d0653a9c667f485fc5afa0e",
+    "source": "ThreeWordPhrase",
+    "title": "Crafts",
+    "desc": "arts and crafts",
+    "link": "http://threewordphrase.com/crafts.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "f1bb81983be69d79a66b3bf25dff034d28feca91",
+    "source": "ThreeWordPhrase",
+    "title": "Minion",
+    "desc": "busy wizard",
+    "link": "http://threewordphrase.com/minion.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "4942cee953fcb172bc8d10558faea8d775f39703",
+    "source": "ThreeWordPhrase",
+    "title": "House",
+    "desc": "house",
+    "link": "http://threewordphrase.com/house.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "e71f8cb13a528b07d150572d2904d43ef5b346f1",
+    "source": "ThreeWordPhrase",
+    "title": "Hostage",
+    "desc": "hostage",
+    "link": "http://threewordphrase.com/hostage.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "23a4b9236af162d1b4bd04ee735cab1b48f6e708",
+    "source": "ThreeWordPhrase",
+    "title": "Steve",
+    "desc": "steve",
+    "link": "http://threewordphrase.com/steve.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "d6d129688d4504db26ef2534b03451dcad618721",
+    "source": "ThreeWordPhrase",
+    "title": "Parkour",
+    "desc": "parkour",
+    "link": "http://threewordphrase.com/parkour.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "df493349a4daa934c63178348519c7e3826a1a5d",
+    "source": "ThreeWordPhrase",
+    "title": "Chomp",
+    "desc": "chomp",
+    "link": "http://threewordphrase.com/chomp.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "1242869dcde839aeab458da1a3b0c7fa6e7e36e2",
+    "source": "ThreeWordPhrase",
+    "title": "Trophy",
+    "desc": "trophy",
+    "link": "http://threewordphrase.com/trophy.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "46cac902898e4f83c4c721897dcc702be53cff00",
+    "source": "ThreeWordPhrase",
+    "title": "Fetish Comics",
+    "desc": "fetish",
+    "link": "http://threewordphrase.com/fetish.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "e8abe4f0753a8873d7ba9fedf7ce38757358b156",
+    "source": "ThreeWordPhrase",
+    "title": "Band-Aid",
+    "desc": "bandaid",
+    "link": "http://threewordphrase.com/bandaid.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "b4d09fd091012850a5aafe5c1136c81961b9a288",
+    "source": "ThreeWordPhrase",
+    "title": "Smart Phone",
+    "desc": "Smart Phone",
+    "link": "http://threewordphrase.com/smartphone.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "9904db454f79dea5b85070248fafe5a479dde0b2",
+    "source": "ThreeWordPhrase",
+    "title": "Knife Fight",
+    "desc": "knife fight",
+    "link": "http://threewordphrase.com/knifefight.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "4968616df391e81555e933f34cef2ffdb353caa1",
+    "source": "ThreeWordPhrase",
+    "title": "Fashion",
+    "desc": "fashion",
+    "link": "http://threewordphrase.com/fashion.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "e9c13aaf973ac2386e4076949008644f2a9b86f9",
+    "source": "ThreeWordPhrase",
+    "title": "Voyeur",
+    "desc": "voyeur",
+    "link": "http://threewordphrase.com/voyeur.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "3ece798fabc31c850f5c965a62a1fde61dc195d7",
+    "source": "ThreeWordPhrase",
+    "title": "Spicy",
+    "desc": "spicy",
+    "link": "http://threewordphrase.com/spicy.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "8714709ba21d413f648b96a5328b8e3236705e9e",
+    "source": "ThreeWordPhrase",
+    "title": "Reaching",
+    "desc": "reaching",
+    "link": "http://threewordphrase.com/reaching.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "5c1b4077cc67379b612feffaffbab6b1fd1f441c",
+    "source": "ThreeWordPhrase",
+    "title": "We Lost Him",
+    "desc": "lost",
+    "link": "http://threewordphrase.com/lost.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "460fd6d2979f7611a6732e5f37bdea8166928715",
+    "source": "ThreeWordPhrase",
+    "title": "Teen Spy",
+    "desc": "Teen Spy",
+    "link": "http://threewordphrase.com/teenspy.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "1638004f67af892275ef6c8832003b58c65f7a15",
+    "source": "ThreeWordPhrase",
+    "title": "Child",
+    "desc": "child",
+    "link": "http://threewordphrase.com/child.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "24cd92835427773f37daba2c3abebe0fa6e38483",
+    "source": "ThreeWordPhrase",
+    "title": "IHOP",
+    "desc": "ihop",
+    "link": "http://threewordphrase.com/ihop.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "cfc6f561a33f698c6078d11abd61e64a759c0934",
+    "source": "ThreeWordPhrase",
+    "title": "Plotz",
+    "desc": "plotz",
+    "link": "http://threewordphrase.com/plotz.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "3f1cdf144a71b803697585b7b73cca9ed0449874",
+    "source": "ThreeWordPhrase",
+    "title": "Good",
+    "desc": "good",
+    "link": "http://threewordphrase.com/good.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "732a6d4ef8d739dcef46c13bf7e3e08e7a397ddb",
+    "source": "ThreeWordPhrase",
+    "title": "Final Form",
+    "desc": "form",
+    "link": "http://threewordphrase.com/form.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "b387f4d5637d0b821b472440d5837723c46975c8",
+    "source": "ThreeWordPhrase",
+    "title": "Papers",
+    "desc": "papers",
+    "link": "http://threewordphrase.com/papers.htm",
+    "image": null,
+    "pub_date": "",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "5f016f01983f0ca0b315d873dbfc183846badeef",
+    "source": "Buttersafe",
+    "title": "Horse Mirage",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/06/25/horse-mirage/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-06-25-HorseMirageRSS.jpg",
+    "pub_date": "Thu, 25 Jun 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "3c2d08f013e60a7fabae97df80b313da27e6ae43",
+    "source": "Buttersafe",
+    "title": "Bee Demon",
+    "desc": "",
+    "link": "http://www.buttersafe.com/2026/06/18/bee-demon/",
+    "image": "http://www.buttersafe.com/comics/rss/2026-06-18-BeeDemonRSS.jpg",
+    "pub_date": "Thu, 18 Jun 2026 07:01:00 +0000",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  },
+  {
+    "guid": "fe761138e5ccf976d2df57fc8c333490844f6cdf",
+    "source": "PBF",
+    "title": "Big Fish",
+    "desc": "The post Big Fish appeared first on The Perry Bible Fellowship.",
+    "link": "https://pbfcomics.com/comics/big-fish/",
+    "image": "https://pbfcomics.com/wp-content/uploads/2026/07/PBF-Big_Fish.png",
+    "pub_date": "Fri, 03 Jul 2026 18:31:06 +0000",
+    "added_at": "2026-07-13T03:40:44.568533+00:00"
+  }
+]
