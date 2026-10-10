@@ -1,0 +1,22 @@
+[
+  {
+    "guid": "24309308",
+    "source": "Blizzard",
+    "title": "StarCraft II 5.0.17 Patch Notes",
+    "desc": "[News] Based on feedback, we have rolled back most balance changes to the live release of StarCraft II from patch 5.0.16 to 5.0.15.",
+    "link": "https://news.blizzard.com/en-us/article/24309308/starcraft-ii-5-0-17-patch-notes",
+    "image": "https://bnetcmsus-a.akamaihd.net/cms/blog_thumbnail/ga/GAJZKEC09RPX1554829654442.jpg",
+    "pub_date": "Wed, 07 Oct 2026 20:05:34 +0000",
+    "added_at": "2026-10-08T17:15:24.039086+00:00"
+  },
+  {
+    "guid": "24301513",
+    "source": "Blizzard",
+    "title": "StarCraft II 5.0.17 PTR Patch Notes",
+    "desc": "[News] New patch is released in PTR, which rolls back the balance changes made in 5.0.16 while retaining the updated map pool and bugfixes.",
+    "link": "https://news.blizzard.com/en-us/article/24301513/starcraft-ii-5-0-17-ptr-patch-notes",
+    "image": "https://bnetcmsus-a.akamaihd.net/cms/blog_thumbnail/ga/GAJZKEC09RPX1554829654442.jpg",
+    "pub_date": "Wed, 30 Sep 2026 17:14:33 +0000",
+    "added_at": "2026-10-01T16:55:42.908711+00:00"
+  }
+]
