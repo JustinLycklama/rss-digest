@@ -90,6 +90,65 @@ To generate new OAuth tokens: copy `client_secret.json` (from Google Cloud Conso
 
 ---
 
+## Source Inventory
+
+All tracked sources, one row per source. Check `pipeline_status.json` on gh-pages for live health.
+
+### Feed: `toronto_events` → `output/toronto_events.xml`
+| Source | Type | URL / Notes |
+|---|---|---|
+| NowToronto | RSS | `https://nowtoronto.com/events/feed/` |
+| MATO | Scraper | `https://ma.to/events/toronto` — JSON-LD on SSR pages; fetches today + next-week listing, skips events <5 days out |
+| SharpenSkills | API | `https://sharpenskills.ca` — custom WP REST endpoint (`/wp-json/affutes-acuity/v1/listings`); paginates with `page_num` |
+| Monarch Tavern | — | **PENDING** — CSR site backed by Supabase; needs anon API key extracted from DevTools |
+
+### Feed: `toronto_raves` → `output/toronto_raves.xml`
+| Source | Type | URL / Notes |
+|---|---|---|
+| r/TorontoRaves | Reddit | subreddit via Reddit JSON API |
+
+### Feed: `news` → `output/news.xml`
+| Source | Type | URL / Notes |
+|---|---|---|
+| BBC | RSS | `http://feeds.bbci.co.uk/news/world/rss.xml` |
+| Guardian | RSS | `https://www.theguardian.com/world/rss` |
+| NYT | RSS | `https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml` |
+| CBC Canada | RSS | `https://www.cbc.ca/cmlink/rss-canada` |
+| CBC Toronto | RSS | `https://www.cbc.ca/cmlink/rss-canada-toronto` |
+| NPR Politics | RSS | `https://feeds.npr.org/1014/rss.xml` |
+| The Verge | RSS | `https://www.theverge.com/rss/index.xml` |
+| Ars Technica | RSS | `https://feeds.arstechnica.com/arstechnica/index` |
+| Spacing Toronto | RSS | `https://spacing.ca/toronto/feed/` |
+
+### Feed: `media_recs` → `output/media_recs.xml`
+| Source | Type | URL / Notes |
+|---|---|---|
+| Reactor Mag | RSS | `https://reactormag.com/feed/` |
+| Roger Ebert | RSS | `https://www.rogerebert.com/feed` |
+| Eurogamer | RSS | `https://www.eurogamer.net/feed` |
+| AV Club | RSS | `https://www.avclub.com/rss` |
+| Slant Magazine | RSS | `https://www.slantmagazine.com/feed/` |
+
+### Feed: `fun` → `output/fun.xml`
+| Source | Type | URL / Notes |
+|---|---|---|
+| XKCD | RSS | `https://xkcd.com/rss.xml` |
+
+### Feed: `starcraft` → `output/starcraft.xml`
+| Source | Type | URL / Notes |
+|---|---|---|
+| Blizzard SC2 | API | Custom scraper — `sources/custom/blizzard.py` |
+
+### Feed: `shambhala` → `output/shambhala.xml`
+| Source | Type | URL / Notes |
+|---|---|---|
+| Shambhala Blog | Scraper | Custom scraper — `sources/custom/shambhala.py` |
+
+### Pipeline health
+After each run, `output/pipeline_status.json` on gh-pages lists every source, item count, and whether it succeeded. A `count: 0` or `ok: false` row means that source needs attention.
+
+---
+
 ## Local Development
 
 Run the full pipeline locally with:

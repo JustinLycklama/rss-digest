@@ -346,6 +346,7 @@ if __name__ == "__main__":
 
     # Pass 1: fetch, filter, update archives
     all_archives = {}
+    source_status = []  # list of {feed, source, count, ok, timestamp}
     for feed in feeds_to_run:
         print(f"\n=== {feed.name} ===")
 
@@ -355,7 +356,27 @@ if __name__ == "__main__":
 
         articles = []
         for source in feed.sources:
-            articles.extend(source.fetch())
+            before = len(articles)
+            try:
+                fetched = source.fetch()
+                articles.extend(fetched)
+                source_status.append({
+                    "feed": feed.name,
+                    "source": type(source).__name__.replace("Source", ""),
+                    "count": len(fetched),
+                    "ok": True,
+                    "timestamp": datetime.now(UTC).isoformat(),
+                })
+            except Exception as e:
+                print(f"  Source {type(source).__name__} failed: {e}")
+                source_status.append({
+                    "feed": feed.name,
+                    "source": type(source).__name__.replace("Source", ""),
+                    "count": 0,
+                    "ok": False,
+                    "error": str(e),
+                    "timestamp": datetime.now(UTC).isoformat(),
+                })
 
         articles     = filter_by_pub_date(articles, feed.archive_days)
         articles     = dedup_by_title(articles)
@@ -401,5 +422,16 @@ if __name__ == "__main__":
 
     for feed in feeds_to_run:
         build_rss(feed, all_archives[feed.name], timestamp_map)
+
+    # Write pipeline status
+    status_path = OUTPUT_DIR / "pipeline_status.json"
+    with open(status_path, "w", encoding="utf-8") as f:
+        json.dump({
+            "run_at": datetime.now(UTC).isoformat(),
+            "sources": source_status,
+        }, f, ensure_ascii=False, indent=2)
+    broken = [s for s in source_status if not s["ok"] or s["count"] == 0]
+    if broken:
+        print(f"\n⚠ {len(broken)} source(s) returned 0 items: {[s['source'] for s in broken]}")
 
     print("\nDone.")
