@@ -2,10 +2,14 @@ import json
 import re
 import hashlib
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
-BASE_URL = "https://ma.to"
-CITY_URL = f"{BASE_URL}/events/toronto"
+BASE_URL   = "https://ma.to"
+CITY_URLS  = [
+    f"{BASE_URL}/events/toronto",
+    f"{BASE_URL}/events/toronto/next-week",
+]
+MIN_DAYS_AHEAD = 5
 HEADERS  = {"User-Agent": "MatoRSS/1.0"}
 
 
@@ -54,33 +58,37 @@ def _format_desc(event):
     return "<br>".join(parts)
 
 
+def _get_event_list(html):
+    for m in re.finditer(r'<script type="application/ld\+json">([\s\S]*?)</script>', html):
+        try:
+            data = json.loads(m.group(1))
+            for node in data.get("@graph", []):
+                if node.get("@type") == "CollectionPage":
+                    return node.get("mainEntity", {}).get("itemListElement", [])
+        except Exception:
+            continue
+    return []
+
+
 class MatoSource:
     def fetch(self) -> list[dict]:
         try:
-            r = requests.get(CITY_URL, headers=HEADERS, timeout=20)
-            r.raise_for_status()
+            seen_urls = set()
+            event_list = []
+            for city_url in CITY_URLS:
+                r = requests.get(city_url, headers=HEADERS, timeout=20)
+                r.raise_for_status()
+                for entry in _get_event_list(r.text):
+                    url = entry.get("url", "")
+                    if url and url not in seen_urls:
+                        seen_urls.add(url)
+                        event_list.append(entry)
 
-            collection = None
-            for m in re.finditer(r'<script type="application/ld\+json">([\s\S]*?)</script>', r.text):
-                try:
-                    data = json.loads(m.group(1))
-                    for node in data.get("@graph", []):
-                        if node.get("@type") == "CollectionPage":
-                            collection = node
-                            break
-                except Exception:
-                    continue
-                if collection:
-                    break
-            if not collection:
-                print("  MATO: could not find CollectionPage in JSON-LD")
-                return []
-
-            event_list = collection.get("mainEntity", {}).get("itemListElement", [])
             if not event_list:
-                print("  MATO: no events in listing")
+                print("  MATO: no events found")
                 return []
 
+            cutoff = datetime.now(timezone.utc) + timedelta(days=MIN_DAYS_AHEAD)
             items = []
             for entry in event_list:
                 url = entry.get("url", "")
@@ -99,8 +107,15 @@ class MatoSource:
                 if not event:
                     continue
 
+                start_date = event.get("startDate", "")
+                if start_date:
+                    try:
+                        if datetime.fromisoformat(start_date).astimezone(timezone.utc) < cutoff:
+                            continue
+                    except Exception:
+                        pass
+
                 image = event.get("image", "")
-                # image may be a list
                 if isinstance(image, list):
                     image = image[0] if image else ""
 
@@ -112,7 +127,7 @@ class MatoSource:
                     "desc":     _format_desc(event),
                     "link":     url,
                     "image":    image,
-                    "pub_date": _rfc822(event.get("startDate", "")),
+                    "pub_date": _rfc822(start_date),
                 })
 
             print(f"  MATO: {len(items)} events")
