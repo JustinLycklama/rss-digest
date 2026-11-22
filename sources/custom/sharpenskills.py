@@ -7,7 +7,20 @@ BASE_URL = "https://sharpenskills.ca"
 LISTINGS_API = f"{BASE_URL}/wp-json/affutes-acuity/v1/listings"
 HEADERS = {"User-Agent": "SharpenRSS/1.0"}
 MIN_DAYS_AHEAD = 3
-MAX_PAGES = 10
+MAX_PAGES = 5
+
+# Rotate through one category per day. Term IDs from their WP taxonomy.
+CATEGORIES = [
+    (2820, "Cooking"),
+    (52,   "Woodworking"),
+    (49,   "Sewing"),
+    (131,  "Crafts"),
+    (127,  "Renovation/DIY"),
+    (2946, "Decorative art"),
+    (237,  "Knitting"),
+    (1185, "Bicycle"),
+    (2944, "Needle & Fabric"),
+]
 
 
 def _rfc822(dt_str):
@@ -63,6 +76,10 @@ def _parse_events(data_html):
 class SharpenSkillsSource:
     def fetch(self) -> list[dict]:
         try:
+            day_of_year = datetime.now(timezone.utc).timetuple().tm_yday
+            term_id, category_name = CATEGORIES[day_of_year % len(CATEGORIES)]
+            print(f"  SharpenSkills: today's category: {category_name} (term {term_id})")
+
             cutoff = datetime.now(timezone.utc) + timedelta(days=MIN_DAYS_AHEAD)
             seen_links = set()
             items = []
@@ -70,7 +87,8 @@ class SharpenSkillsSource:
             for page_num in range(1, MAX_PAGES + 1):
                 r = requests.get(
                     LISTINGS_API,
-                    params={"mode": "chrono", "page_num": page_num, "how_many": 20, "lang": "en"},
+                    params={"mode": "chrono", "page_num": page_num, "how_many": 20,
+                            "lang": "en", "category_terms": term_id},
                     headers=HEADERS,
                     timeout=20,
                 )
@@ -99,7 +117,7 @@ class SharpenSkillsSource:
                     items.append(
                         {
                             "guid": guid,
-                            "source": "SharpenSkills",
+                            "source": f"Sharpen/{category_name}",
                             "title": event["title"],
                             "desc": event["desc"],
                             "link": link,
@@ -111,7 +129,7 @@ class SharpenSkillsSource:
                 if not data.get("has_more_pages"):
                     break
 
-            print(f"  SharpenSkills: {len(items)} workshops")
+            print(f"  SharpenSkills: {len(items)} {category_name} workshops")
             return items
 
         except Exception as e:
