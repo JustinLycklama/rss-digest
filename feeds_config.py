@@ -60,19 +60,29 @@ FEEDS = [
             MatoSource(),
         ],
         filter_prompt=(
-            "Include Toronto events that are:\n"
-            "- Evening events (5pm or later on weekdays)\n"
-            "- Weekend events (any time Saturday or Sunday)\n"
-            "- Raves, DJ sets, concerts, arts, culture, and food events\n\n"
+            "Include Toronto events that match the user's interests:\n"
+            "- Live music: concerts, DJ sets, jazz, experimental/noise/electronic, free jazz\n"
+            "- Nightlife: bar nights, club events, dance nights at independent venues\n"
+            "- Arts and culture: gallery openings, film screenings, performances\n"
+            "- Food and drink: cooking classes, food workshops, restaurant events\n"
+            "- Markets: farmers markets, neighbourhood pop-ups, local vendor markets\n"
+            "- Tabletop gaming: D&D, board game nights, RPG events\n"
+            "- Community events at independent local venues\n\n"
             "EXCLUDE:\n"
-            "- Comedy shows and stand-up events\n"
+            "- Comedy shows and stand-up\n"
+            "- Parades and large public spectacles\n"
+            "- Family/kids-oriented events\n"
+            "- Holiday tourist events (Santa, Christmas fairs, seasonal light shows)\n"
+            "- Food expos and dessert/chocolate festivals\n"
+            "- Fitness classes, yoga, wellness workshops\n"
+            "- Sports events and races\n"
             "- Daytime weekday events (before 5pm Monday–Friday)\n"
             "- Events without a specific date or venue\n\n"
             "PRIORITIZATION: The user lives near Trinity Bellwoods in Toronto's west end. "
-            "Rank higher events in or near: Trinity-Bellwoods, Dufferin Grove, Little Portugal, "
+            "Prioritize events in or near: Trinity-Bellwoods, Dufferin Grove, Little Portugal, "
             "Roncesvalles, Palmerston-Little Italy, West Queen West, South Parkdale, "
             "Kensington-Chinatown, Junction, High Park, Corso Italia, Wychwood, Dovercourt, "
-            "Fort York, Liberty Village."
+            "Fort York, Liberty Village, Geary Ave."
         ),
         archive_days=30,
     ),
