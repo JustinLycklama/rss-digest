@@ -3,6 +3,7 @@ from sources.rss import RSSSource
 from sources.reddit import RedditSource
 from sources.custom.blizzard import BlizzardSource
 from sources.custom.shambhala import ShambhalaSource
+from sources.custom.mato import MatoSource
 
 
 @dataclass
@@ -56,6 +57,7 @@ FEEDS = [
         description="Toronto evening and weekend events from BlogTO and Now Toronto",
         sources=[
             RSSSource("NowToronto", "https://nowtoronto.com/events/feed/"),
+            MatoSource(),
         ],
         filter_prompt=(
             "Include Toronto events that are:\n"
@@ -94,11 +96,7 @@ FEEDS = [
         title="Comics & Lighthearted",
         description="Webcomics and lighthearted content",
         sources=[
-            RSSSource("XKCD",           "https://xkcd.com/rss.xml"),
-            RSSSource("ThreeWordPhrase", "https://threewordphrase.com/rss.xml", fetch_page_image=True),
-            RSSSource("Buttersafe",      "http://feeds.feedburner.com/buttersafe", fetch_page_image=True, page_image_id="comic"),
-            RSSSource("PBF",            "https://pbfcomics.com/feed/"),
-            RSSSource("WebComicName",   "https://webcomicname.com/rss"),
+            RSSSource("XKCD", "https://xkcd.com/rss.xml"),
         ],
         filter_prompt=None,
         archive_days=180,

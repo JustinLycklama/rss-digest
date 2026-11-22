@@ -303,15 +303,18 @@ def build_rss(feed, articles, timestamp_map=None):
     for a in articles:
         item = ET.SubElement(channel, "item")
         media_type = a.get("media_type", "")
+        source = a.get("source", "")
         title = f"{media_type}: {a['title']}" if media_type and media_type != "Other" else a["title"]
+        if source:
+            title = f"[{source}] {title}"
         ET.SubElement(item, "title").text = title
         ET.SubElement(item, "link").text  = a["link"]
 
         reason = a.get("reason", "")
-        source = a.get("source", "")
         desc   = a.get("desc", "")
-        footer = f"{source} — {reason}" if reason else source
-        ET.SubElement(item, "description").text = f"<p>{desc}</p><p><em>{footer}</em></p>"
+        ET.SubElement(item, "description").text = (
+            f"<p>{desc}</p><p><em>{reason}</em></p>" if reason else f"<p>{desc}</p>"
+        )
 
         guid_el      = ET.SubElement(item, "guid")
         guid_el.text = a["guid"]
