@@ -1,6 +1,6 @@
 import hashlib
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from zoneinfo import ZoneInfo
 
 BASE_URL     = "https://monarchtavern.netlify.app"
@@ -20,6 +20,10 @@ ANON_KEY = (
 # individual rows stretching months ahead — the venue's fixed schedule, not events
 # to discover. Dropped at the source so they don't flood the feed (Principle 1).
 EXCLUDE_SOURCES = {"recurring"}
+
+# Events starting further out than this are skipped until they're closer, so the
+# feed stays near-term and season-long fixtures (e.g. football) don't pile up.
+MAX_DAYS_AHEAD = 90
 
 VENUE_LABELS = {"downstairs": "Downstairs", "upstairs": "Upstairs"}
 TZ = ZoneInfo("America/Toronto")
@@ -75,13 +79,16 @@ class MonarchSource:
 
     def fetch(self) -> list[dict]:
         try:
-            now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+            fmt = "%Y-%m-%dT%H:%M:%S"
+            now_dt = datetime.now(timezone.utc)
+            now = now_dt.strftime(fmt)
+            cutoff = (now_dt + timedelta(days=MAX_DAYS_AHEAD)).strftime(fmt)
             r = requests.get(
                 REST_URL,
                 params={
                     "status": "eq.published",
                     "hide_from_calendar": "is.false",
-                    "start_at": f"gte.{now}",
+                    "and": f"(start_at.gte.{now},start_at.lte.{cutoff})",
                     "order": "start_at.asc",
                     "select": (
                         "slug,title,start_at,venue,description,"
