@@ -106,7 +106,7 @@ All tracked sources, one row per source. Check `pipeline_status.json` on gh-page
 ### Feed: `toronto_raves` → `output/toronto_raves.xml`
 | Source | Type | URL / Notes |
 |---|---|---|
-| r/TorontoRaves | Reddit | subreddit via Reddit JSON API |
+| r/TorontoRaves | Reddit | **BROKEN since 2026-11-17 (TODO, parked)**: Reddit returns 404 to anonymous `.rss` from GitHub runners. Fix: Reddit API with app-only OAuth (`REDDIT_CLIENT_ID`/`REDDIT_CLIENT_SECRET` secrets). User is staying off Reddit for now. |
 
 ### Feed: `news` → `output/news.xml`
 | Source | Type | URL / Notes |
@@ -147,6 +147,16 @@ All tracked sources, one row per source. Check `pipeline_status.json` on gh-page
 
 ### Pipeline health
 After each run, `output/pipeline_status.json` on gh-pages lists every source, item count, and whether it succeeded. A `count: 0` or `ok: false` row means that source needs attention.
+
+---
+
+## Emergency Rollback
+
+Tag `known-good-2026-11` (commit `6c12331`) is the last state before the Nov 2026 source changes.
+
+- **One-off rebuild with old code:** `gh workflow run daily.yml --ref known-good-2026-11`. The next scheduled run uses `main` again.
+- **Stay on old code:** `git revert --no-edit known-good-2026-11..main` then push.
+- Archives on gh-pages carry over either way. To start feeds fresh, delete the `*_archive.json` files from gh-pages first.
 
 ---
 
