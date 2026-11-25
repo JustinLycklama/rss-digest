@@ -74,6 +74,8 @@ def _parse_events(data_html):
 
 
 class SharpenSkillsSource:
+    name = "Sharpen"
+
     def fetch(self) -> list[dict]:
         try:
             day_of_year = datetime.now(timezone.utc).timetuple().tm_yday

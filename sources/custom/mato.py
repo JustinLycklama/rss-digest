@@ -71,6 +71,8 @@ def _get_event_list(html):
 
 
 class MatoSource:
+    name = "MATO"
+
     def fetch(self) -> list[dict]:
         try:
             seen_urls = set()

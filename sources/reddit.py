@@ -18,6 +18,7 @@ def _clean(html_text):
 class RedditSource:
     def __init__(self, subreddit: str, max_items: int = 25):
         self.subreddit = subreddit
+        self.name = f"r/{subreddit}"
         self.max_items = max_items
 
     def fetch(self) -> list[dict]:

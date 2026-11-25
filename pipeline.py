@@ -206,6 +206,48 @@ def merge_into_archive(archive, new_articles, archive_days):
     return archive
 
 
+def prune_removed_sources(archive, feed):
+    names = [s.name for s in feed.sources]
+    kept = [
+        a for a in archive
+        if any(a.get("source", "") == n or a.get("source", "").startswith(n + "/") for n in names)
+    ]
+    if len(kept) < len(archive):
+        print(f"  Pruned {len(archive) - len(kept)} archived items from removed sources")
+    return kept
+
+
+# --- DISPLAY DATES ---
+# Each item gets one pubDate, fixed when it first enters the archive. A run's new
+# items are spread over the 24h before the run, round-robin across feeds, so
+# readers see feeds interleaved and old items never resurface as new.
+def assign_display_dates(groups, end_time, window=timedelta(hours=24)):
+    queues = [list(g) for g in groups if g]
+    ordered = []
+    while queues:
+        for q in queues:
+            ordered.append(q.pop(0))
+        queues = [q for q in queues if q]
+    if not ordered:
+        return
+    step = window / len(ordered)
+    for i, a in enumerate(ordered):
+        a["display_date"] = (end_time - i * step).strftime("%a, %d %b %Y %H:%M:%S +0000")
+
+
+def backfill_display_dates(all_archives):
+    """One-time migration for archive items created before display_date existed."""
+    by_day = {}
+    for feed_name, archive in all_archives.items():
+        for a in archive:
+            if "display_date" not in a and a.get("added_at"):
+                day = a["added_at"][:10]
+                by_day.setdefault(day, {}).setdefault(feed_name, []).append(a)
+    for day, feeds in by_day.items():
+        end = max(datetime.fromisoformat(a["added_at"]) for g in feeds.values() for a in g)
+        assign_display_dates(list(feeds.values()), end)
+
+
 # --- DATE FILTER ---
 def filter_by_pub_date(articles, archive_days):
     """Drop articles with a pub_date older than archive_days. Articles with no date pass through."""
@@ -292,7 +334,7 @@ Articles:
 
 
 # --- RSS OUTPUT ---
-def build_rss(feed, articles, timestamp_map=None):
+def build_rss(feed, articles):
     rss     = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
     ET.SubElement(channel, "title").text        = feed.title
@@ -320,8 +362,8 @@ def build_rss(feed, articles, timestamp_map=None):
         guid_el.text = a["guid"]
         guid_el.set("isPermaLink", "false")
 
-        if timestamp_map and a["guid"] in timestamp_map:
-            ET.SubElement(item, "pubDate").text = timestamp_map[a["guid"]]
+        if a.get("display_date"):
+            ET.SubElement(item, "pubDate").text = a["display_date"]
 
         if a.get("image"):
             mc = ET.SubElement(item, f"{{{MEDIA_NS}}}content")
@@ -350,19 +392,18 @@ if __name__ == "__main__":
     for feed in feeds_to_run:
         print(f"\n=== {feed.name} ===")
 
-        archive        = load_archive(feed.name)
+        archive        = prune_removed_sources(load_archive(feed.name), feed)
         archive_guids  = {a["guid"] for a in archive}
         print(f"  Archive: {len(archive)} articles")
 
         articles = []
         for source in feed.sources:
-            before = len(articles)
             try:
                 fetched = source.fetch()
                 articles.extend(fetched)
                 source_status.append({
                     "feed": feed.name,
-                    "source": type(source).__name__.replace("Source", ""),
+                    "source": source.name,
                     "count": len(fetched),
                     "ok": True,
                     "timestamp": datetime.now(UTC).isoformat(),
@@ -371,7 +412,7 @@ if __name__ == "__main__":
                 print(f"  Source {type(source).__name__} failed: {e}")
                 source_status.append({
                     "feed": feed.name,
-                    "source": type(source).__name__.replace("Source", ""),
+                    "source": source.name,
                     "count": 0,
                     "ok": False,
                     "error": str(e),
@@ -403,25 +444,17 @@ if __name__ == "__main__":
             kept = new_articles
 
         archive = merge_into_archive(archive, kept, feed.archive_days)
-        save_archive(feed.name, archive)
         all_archives[feed.name] = archive
 
-    # Pass 2: assign jitter timestamps by round-robining across all feeds,
-    # then write RSS. This interleaves feeds evenly regardless of archive size.
-    now = datetime.now(UTC)
-    timestamp_map = {}
-    queues = [list(all_archives[feed.name]) for feed in feeds_to_run]
-    slot = 0
-    while any(queues):
-        for queue in queues:
-            if queue:
-                article = queue.pop(0)
-                ts = now - timedelta(minutes=slot * 10)
-                timestamp_map[article["guid"]] = ts.strftime("%a, %d %b %Y %H:%M:%S +0000")
-                slot += 1
+    backfill_display_dates(all_archives)
+    assign_display_dates(
+        [[a for a in arc if "display_date" not in a] for arc in all_archives.values()],
+        datetime.now(UTC),
+    )
 
     for feed in feeds_to_run:
-        build_rss(feed, all_archives[feed.name], timestamp_map)
+        save_archive(feed.name, all_archives[feed.name])
+        build_rss(feed, all_archives[feed.name])
 
     # Write pipeline status
     status_path = OUTPUT_DIR / "pipeline_status.json"

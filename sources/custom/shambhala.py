@@ -27,6 +27,8 @@ def _rfc822(date_str):
 
 
 class ShambhalaSource:
+    name = "Shambhala"
+
     def fetch(self) -> list[dict]:
         try:
             r = requests.get(URL, headers=HEADERS, timeout=20)

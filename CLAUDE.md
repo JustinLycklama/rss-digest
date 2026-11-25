@@ -4,16 +4,17 @@ Personal RSS pipeline. Fetches, filters, and publishes RSS feeds to GitHub Pages
 
 Output feeds are served at `https://justinlycklama.github.io/rss-digest/<filename>.xml`.
 
+**Read [PRINCIPLES.md](PRINCIPLES.md) before changing feeds, sources, or output timing.**
+
 ---
 
 ## CI Jobs
 
 ### Daily RSS Digest — `.github/workflows/daily.yml`
-**Schedule:** Daily at noon UTC (8am EDT)
+**Schedule:** Daily at 10am UTC (GitHub often starts it hours late)
 
-Runs the full RSS pipeline in order:
-1. `run_generate_reddit_rss.py` — generates subreddit feeds
-2. `run_custom_scrapers.py` — runs all scrapers in `custom_scrapers/`
+1. Restores `*_archive.json` from gh-pages
+2. Runs `pipeline.py` (all feeds defined in `feeds_config.py`)
 3. Deploys everything in `output/` to the `gh-pages` branch
 
 **Secrets required:** `ANTHROPIC_API_KEY`, `NOTION_TOKEN`

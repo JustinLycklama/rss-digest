@@ -30,6 +30,8 @@ def _rfc822(iso_date):
 
 
 class BlizzardSource:
+    name = "Blizzard"
+
     def fetch(self) -> list[dict]:
         try:
             r = requests.get(API_URL, headers=HEADERS, timeout=20)
