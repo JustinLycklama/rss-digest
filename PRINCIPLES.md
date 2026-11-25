@@ -16,22 +16,25 @@ The point of this pipeline is a calm replacement for social media: a small, trus
 - A run's new items are spread across the 24h before the run, alternating between feeds, so no single feed fills the top of the reader.
 - Any new output step must keep this. Don't write timestamps that cluster one feed together.
 
-## 4. Removing a source removes its content
+## 4. Headlines are about the content
+- Titles carry only the item's own headline. Metadata like the source name goes in the description footer, where it's available without grabbing attention.
+
+## 5. Removing a source removes its content
 - Archive items from sources no longer in `feeds_config.py` are pruned on the next run. If a source is gone from the config, its items are gone from the feed.
 
-## 5. Freshness matches the content
+## 6. Freshness matches the content
 - Archive windows should match how long the content stays useful. Events that have already happened shouldn't stay around. News is stale after days, not months.
 - Event feeds (`event_feed=True`) store an `event_date`, taken from the source or extracted by the Claude filter, and items drop once that date passes. A post's date says nothing about when its event happens.
 
-## 6. The archive is for dedupe, not display depth
+## 7. The archive is for dedupe, not display depth
 - Archives exist so the pipeline doesn't re-evaluate or re-post items. Keep `archive_days` short (unfiltered feeds like XKCD: 14 days). A long archive mostly causes old items to resurface when something breaks.
 
-## 7. Fail visibly
+## 8. Fail visibly
 - Every source has a `name`, and each run records its item count in `pipeline_status.json`.
 - A source returning 0 items several days in a row is broken until shown otherwise.
 - The Source Inventory in `CLAUDE.md` is updated whenever a source is added, removed, or changes method.
 
-## 8. Source method, in order of preference
+## 9. Source method, in order of preference
 1. Official RSS/Atom feed
 2. Public JSON/REST API the site itself uses
 3. HTML/JSON-LD scraping
