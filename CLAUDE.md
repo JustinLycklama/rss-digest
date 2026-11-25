@@ -101,7 +101,7 @@ All tracked sources, one row per source. Check `pipeline_status.json` on gh-page
 | NowToronto | RSS | `https://nowtoronto.com/events/feed/` |
 | MATO | Scraper | `https://ma.to/events/toronto` — JSON-LD on SSR pages; fetches today + next-week listing, skips events <5 days out |
 | SharpenSkills | API | `https://sharpenskills.ca` — custom WP REST endpoint (`/wp-json/affutes-acuity/v1/listings`); paginates with `page_num` |
-| Monarch Tavern | — | **PENDING** — CSR site backed by Supabase; needs anon API key extracted from DevTools |
+| Monarch Tavern | API | `sources/custom/monarch.py` — Supabase PostgREST (`ffejqqqltnseiytktcmy.supabase.co/rest/v1/events`), publishable anon key from the site bundle. Fetches `status=published` upcoming events; `source=recurring` (weekly karaoke/DJ fixtures) excluded as noise. Links to ticket vendor when present, else the site deep link. |
 
 ### Feed: `toronto_raves` → `output/toronto_raves.xml`
 | Source | Type | URL / Notes |

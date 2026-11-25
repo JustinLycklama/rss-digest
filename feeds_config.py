@@ -5,6 +5,7 @@ from sources.custom.blizzard import BlizzardSource
 from sources.custom.shambhala import ShambhalaSource
 from sources.custom.mato import MatoSource
 from sources.custom.sharpenskills import SharpenSkillsSource
+from sources.custom.monarch import MonarchSource
 
 
 @dataclass
@@ -62,6 +63,7 @@ FEEDS = [
             RSSSource("NowToronto", "https://nowtoronto.com/events/feed/"),
             MatoSource(),
             SharpenSkillsSource(),
+            MonarchSource(),
         ],
         filter_prompt=(
             "Include Toronto events that match the user's interests:\n"
