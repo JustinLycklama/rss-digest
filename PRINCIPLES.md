@@ -18,6 +18,7 @@ The point of this pipeline is a calm replacement for social media: a small, trus
 
 ## 4. Headlines are about the content
 - Titles carry only the item's own headline. Metadata like the source name goes in the description footer, where it's available without grabbing attention.
+- Exception: a media type prefix (`Film:`, `TV:`, `Game:`, `Book:`) stays in the title, because it describes the content itself.
 
 ## 5. Removing a source removes its content
 - Archive items from sources no longer in `feeds_config.py` are pruned on the next run. If a source is gone from the config, its items are gone from the feed.
