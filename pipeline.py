@@ -248,6 +248,14 @@ def backfill_display_dates(all_archives):
         assign_display_dates(list(feeds.values()), end)
 
 
+def drop_past_events(archive):
+    today = datetime.now(UTC).date().isoformat()
+    kept = [a for a in archive if not a.get("event_date") or a["event_date"] >= today]
+    if len(kept) < len(archive):
+        print(f"  Dropped {len(archive) - len(kept)} past events")
+    return kept
+
+
 # --- DATE FILTER ---
 def filter_by_pub_date(articles, archive_days):
     """Drop articles with a pub_date older than archive_days. Articles with no date pass through."""
@@ -281,9 +289,12 @@ def dedup_by_title(articles):
 
 
 # --- CLAUDE FILTER ---
-def filter_articles(articles, filter_context, client, classify_type=False):
+def filter_articles(articles, filter_context, client, classify_type=False, event_date=False):
     kept = []
     type_schema = ', "type": "Game|Film|Book|TV|Other"' if classify_type else ""
+    if event_date:
+        type_schema += ', "event_date": "YYYY-MM-DD of the event (last day if multi-day), or null if unknown"'
+        filter_context += f"\n\nToday is {datetime.now(UTC).date().isoformat()}. EXCLUDE events whose date has already passed."
     for i in range(0, len(articles), BATCH_SIZE):
         batch    = articles[i:i + BATCH_SIZE]
         numbered = "\n".join(
@@ -327,6 +338,8 @@ Articles:
                     article["reason"] = d.get("reason", "")
                     if classify_type:
                         article["media_type"] = d.get("type", "")
+                    if event_date:
+                        article["event_date"] = d.get("event_date")
                     kept.append(article)
                     print(f"  + {batch[idx]['title'][:70]}")
 
@@ -436,7 +449,8 @@ if __name__ == "__main__":
 
             if prompt:
                 classify = feed.filter_prompt == "TASTE_PROFILE"
-                kept = filter_articles(new_articles, prompt, client, classify_type=classify)
+                kept = filter_articles(new_articles, prompt, client, classify_type=classify,
+                                       event_date=feed.event_feed)
                 print(f"  Kept: {len(kept)}")
             else:
                 kept = []
@@ -444,6 +458,8 @@ if __name__ == "__main__":
             kept = new_articles
 
         archive = merge_into_archive(archive, kept, feed.archive_days)
+        if feed.event_feed:
+            archive = drop_past_events(archive)
         all_archives[feed.name] = archive
 
     backfill_display_dates(all_archives)

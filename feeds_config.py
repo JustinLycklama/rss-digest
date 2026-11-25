@@ -16,6 +16,7 @@ class Feed:
     filter_prompt: str | None = None  # None = no Claude filter, "NOTION" = load from Notion
     archive_days: int = 7
     require_image: bool = False
+    event_feed: bool = False  # Claude extracts event_date; items drop once it passes
 
 
 FEEDS = [
@@ -51,6 +52,7 @@ FEEDS = [
             "general discussion, gear questions, music releases, and set recordings."
         ),
         archive_days=30,
+        event_feed=True,
     ),
     Feed(
         name="toronto_events",
@@ -87,6 +89,7 @@ FEEDS = [
             "Fort York, Liberty Village, Geary Ave."
         ),
         archive_days=30,
+        event_feed=True,
     ),
     Feed(
         name="media_recs",
@@ -111,7 +114,7 @@ FEEDS = [
             RSSSource("XKCD", "https://xkcd.com/rss.xml"),
         ],
         filter_prompt=None,
-        archive_days=180,
+        archive_days=14,
         require_image=True,
     ),
     Feed(
