@@ -1,0 +1,68 @@
+[
+  {
+    "guid": "1c93e287dc90d7c2b936c5dbd37576f4030f51c6",
+    "source": "XKCD",
+    "title": "Tiny Squirrels",
+    "desc": "",
+    "link": "https://xkcd.com/3330/",
+    "image": "https://imgs.xkcd.com/comics/tiny_squirrels.png",
+    "pub_date": "Fri, 27 Nov 2026 05:00:00 +0000",
+    "added_at": "2026-11-28T18:00:07.794257+00:00",
+    "display_date": "Sat, 28 Nov 2026 14:12:45 +0000"
+  },
+  {
+    "guid": "f11e0dba3bef06fd6b3a53ab572a08d915d75d6f",
+    "source": "XKCD",
+    "title": "Cesium Atom",
+    "desc": "",
+    "link": "https://xkcd.com/3329/",
+    "image": "https://imgs.xkcd.com/comics/cesium_atom.png",
+    "pub_date": "Wed, 25 Nov 2026 05:00:00 +0000",
+    "added_at": "2026-11-26T19:27:33.571025+00:00",
+    "display_date": "Thu, 26 Nov 2026 17:49:22 +0000"
+  },
+  {
+    "guid": "7faccdfd440e42ccef6c6f2b78181ee7dcf29df5",
+    "source": "XKCD",
+    "title": "Ivory Tower Elites",
+    "desc": "",
+    "link": "https://xkcd.com/3328/",
+    "image": "https://imgs.xkcd.com/comics/ivory_tower_elites.png",
+    "pub_date": "Mon, 23 Nov 2026 05:00:00 +0000",
+    "added_at": "2026-11-23T21:56:06.554088+00:00",
+    "display_date": "Mon, 23 Nov 2026 19:52:40 +0000"
+  },
+  {
+    "guid": "fac72f29911977cf997675148219fc8ae91c44f7",
+    "source": "XKCD",
+    "title": "Plate Maintenance",
+    "desc": "",
+    "link": "https://xkcd.com/3327/",
+    "image": "https://imgs.xkcd.com/comics/plate_maintenance.png",
+    "pub_date": "Fri, 20 Nov 2026 05:00:00 +0000",
+    "added_at": "2026-11-21T17:09:57.871541+00:00",
+    "display_date": "Sat, 21 Nov 2026 15:39:58 +0000"
+  },
+  {
+    "guid": "be9d192a6c075549a5b86b469e79778d02bdba53",
+    "source": "XKCD",
+    "title": "Voyager Crash",
+    "desc": "",
+    "link": "https://xkcd.com/3326/",
+    "image": "https://imgs.xkcd.com/comics/voyager_crash.png",
+    "pub_date": "Wed, 18 Nov 2026 05:00:00 +0000",
+    "added_at": "2026-11-18T18:42:10.434545+00:00",
+    "display_date": "Wed, 18 Nov 2026 17:24:20 +0000"
+  },
+  {
+    "guid": "f5979589523352d9b3be6316a82a6b84c50bb982",
+    "source": "XKCD",
+    "title": "Light-Day",
+    "desc": "",
+    "link": "https://xkcd.com/3325/",
+    "image": "https://imgs.xkcd.com/comics/light_day.png",
+    "pub_date": "Mon, 16 Nov 2026 05:00:00 +0000",
+    "added_at": "2026-11-17T18:59:03.384447+00:00",
+    "display_date": "Tue, 17 Nov 2026 17:23:03 +0000"
+  }
+]

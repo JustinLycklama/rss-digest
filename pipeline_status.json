@@ -1,0 +1,159 @@
+{
+  "run_at": "2026-11-28T18:00:08.337392+00:00",
+  "sources": [
+    {
+      "feed": "news",
+      "source": "BBC",
+      "count": 26,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:39.755964+00:00"
+    },
+    {
+      "feed": "news",
+      "source": "Guardian",
+      "count": 30,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:39.859353+00:00"
+    },
+    {
+      "feed": "news",
+      "source": "NYT",
+      "count": 10,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:39.996756+00:00"
+    },
+    {
+      "feed": "news",
+      "source": "CBCCanada",
+      "count": 20,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:40.244984+00:00"
+    },
+    {
+      "feed": "news",
+      "source": "NPRPolitics",
+      "count": 10,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:40.542004+00:00"
+    },
+    {
+      "feed": "news",
+      "source": "Verge",
+      "count": 10,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:40.659391+00:00"
+    },
+    {
+      "feed": "news",
+      "source": "Ars",
+      "count": 20,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:40.772440+00:00"
+    },
+    {
+      "feed": "news",
+      "source": "CBCToronto",
+      "count": 20,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:40.840653+00:00"
+    },
+    {
+      "feed": "news",
+      "source": "Spacing",
+      "count": 20,
+      "ok": true,
+      "timestamp": "2026-11-28T17:58:40.986114+00:00"
+    },
+    {
+      "feed": "toronto_raves",
+      "source": "r/TorontoRaves",
+      "count": 0,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:30.105354+00:00"
+    },
+    {
+      "feed": "toronto_events",
+      "source": "NowToronto",
+      "count": 10,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:30.201869+00:00"
+    },
+    {
+      "feed": "toronto_events",
+      "source": "MATO",
+      "count": 0,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:44.929416+00:00"
+    },
+    {
+      "feed": "toronto_events",
+      "source": "Sharpen",
+      "count": 0,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:45.112254+00:00"
+    },
+    {
+      "feed": "toronto_events",
+      "source": "Monarch",
+      "count": 46,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:45.261784+00:00"
+    },
+    {
+      "feed": "media_recs",
+      "source": "ReactorMag",
+      "count": 30,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:47.484176+00:00"
+    },
+    {
+      "feed": "media_recs",
+      "source": "RogerEbert",
+      "count": 10,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:47.579002+00:00"
+    },
+    {
+      "feed": "media_recs",
+      "source": "Eurogamer",
+      "count": 30,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:47.783833+00:00"
+    },
+    {
+      "feed": "media_recs",
+      "source": "AVClub",
+      "count": 30,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:47.985411+00:00"
+    },
+    {
+      "feed": "media_recs",
+      "source": "Slant",
+      "count": 20,
+      "ok": true,
+      "timestamp": "2026-11-28T17:59:48.348811+00:00"
+    },
+    {
+      "feed": "fun",
+      "source": "XKCD",
+      "count": 4,
+      "ok": true,
+      "timestamp": "2026-11-28T18:00:07.794151+00:00"
+    },
+    {
+      "feed": "starcraft",
+      "source": "Blizzard",
+      "count": 24,
+      "ok": true,
+      "timestamp": "2026-11-28T18:00:08.093947+00:00"
+    },
+    {
+      "feed": "shambhala",
+      "source": "Shambhala",
+      "count": 13,
+      "ok": true,
+      "timestamp": "2026-11-28T18:00:08.324690+00:00"
+    }
+  ]
+}
